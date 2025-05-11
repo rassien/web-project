@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+
+# Excel dosyaları (eğer yüklemek istemiyorsanız)
+*.xlsx
+*.xls
+
+# Diğer
+.DS_Store 
