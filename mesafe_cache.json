@@ -1,0 +1,2806 @@
+{
+  "40.95989,29.0815057|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Suadiye, Bağdat Cad. 422a, 34740 Kadıköy/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "7.6 km",
+              "value": 7592
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1401
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "16.9 km",
+              "value": 16890
+            },
+            "duration": {
+              "text": "32 mins",
+              "value": 1892
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "26.5 km",
+              "value": 26481
+            },
+            "duration": {
+              "text": "42 mins",
+              "value": 2544
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "425 km",
+              "value": 424777
+            },
+            "duration": {
+              "text": "4 hours 27 mins",
+              "value": 16005
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "434 km",
+              "value": 434178
+            },
+            "duration": {
+              "text": "4 hours 36 mins",
+              "value": 16538
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "437 km",
+              "value": 436848
+            },
+            "duration": {
+              "text": "4 hours 38 mins",
+              "value": 16697
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "432 km",
+              "value": 432199
+            },
+            "duration": {
+              "text": "4 hours 35 mins",
+              "value": 16492
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "425 km",
+              "value": 424634
+            },
+            "duration": {
+              "text": "4 hours 33 mins",
+              "value": 16409
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "427 km",
+              "value": 427024
+            },
+            "duration": {
+              "text": "4 hours 29 mins",
+              "value": 16169
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "41.0480102,29.0045285|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Abbasağa, Bostanüstu Dere Sokağı 16/a, 34353 Beşiktaş/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "14.2 km",
+              "value": 14151
+            },
+            "duration": {
+              "text": "19 mins",
+              "value": 1114
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "0.6 km",
+              "value": 594
+            },
+            "duration": {
+              "text": "3 mins",
+              "value": 183
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "19.6 km",
+              "value": 19619
+            },
+            "duration": {
+              "text": "26 mins",
+              "value": 1530
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "432 km",
+              "value": 432237
+            },
+            "duration": {
+              "text": "4 hours 28 mins",
+              "value": 16107
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "442 km",
+              "value": 441639
+            },
+            "duration": {
+              "text": "4 hours 37 mins",
+              "value": 16641
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "444 km",
+              "value": 444309
+            },
+            "duration": {
+              "text": "4 hours 40 mins",
+              "value": 16800
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "440 km",
+              "value": 439660
+            },
+            "duration": {
+              "text": "4 hours 37 mins",
+              "value": 16595
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "432 km",
+              "value": 432095
+            },
+            "duration": {
+              "text": "4 hours 35 mins",
+              "value": 16512
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "434 km",
+              "value": 434485
+            },
+            "duration": {
+              "text": "4 hours 31 mins",
+              "value": 16272
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.9788965,32.7433229|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Ostim OSB, 100. Yıl Blv No:55, 06374 Yenimahalle/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "423 km",
+              "value": 422853
+            },
+            "duration": {
+              "text": "4 hours 20 mins",
+              "value": 15616
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "425 km",
+              "value": 425186
+            },
+            "duration": {
+              "text": "4 hours 25 mins",
+              "value": 15924
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "450 km",
+              "value": 450085
+            },
+            "duration": {
+              "text": "4 hours 37 mins",
+              "value": 16632
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "3.1 km",
+              "value": 3073
+            },
+            "duration": {
+              "text": "6 mins",
+              "value": 378
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "16.4 km",
+              "value": 16381
+            },
+            "duration": {
+              "text": "21 mins",
+              "value": 1251
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "19.1 km",
+              "value": 19052
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1409
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "16.7 km",
+              "value": 16677
+            },
+            "duration": {
+              "text": "21 mins",
+              "value": 1259
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "6.9 km",
+              "value": 6854
+            },
+            "duration": {
+              "text": "18 mins",
+              "value": 1106
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.5 km",
+              "value": 11502
+            },
+            "duration": {
+              "text": "16 mins",
+              "value": 935
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.9909436,32.7427828|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "İvedik OSB, 1420. Cd. No:20, 06374 Yenimahalle/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "422 km",
+              "value": 422099
+            },
+            "duration": {
+              "text": "4 hours 19 mins",
+              "value": 15517
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "424 km",
+              "value": 424432
+            },
+            "duration": {
+              "text": "4 hours 24 mins",
+              "value": 15826
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "449 km",
+              "value": 449331
+            },
+            "duration": {
+              "text": "4 hours 36 mins",
+              "value": 16534
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "3.9 km",
+              "value": 3904
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 486
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "17.2 km",
+              "value": 17212
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1358
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "19.9 km",
+              "value": 19882
+            },
+            "duration": {
+              "text": "25 mins",
+              "value": 1517
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "17.5 km",
+              "value": 17507
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1366
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.7 km",
+              "value": 7684
+            },
+            "duration": {
+              "text": "20 mins",
+              "value": 1214
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "12.3 km",
+              "value": 12332
+            },
+            "duration": {
+              "text": "17 mins",
+              "value": 1043
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.925296,32.8558499|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Cumhuriyet, Mithatpaşa Cd. No:10/12, 06430 Çankaya/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "437 km",
+              "value": 436919
+            },
+            "duration": {
+              "text": "4 hours 31 mins",
+              "value": 16281
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "439 km",
+              "value": 439252
+            },
+            "duration": {
+              "text": "4 hours 37 mins",
+              "value": 16590
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "464 km",
+              "value": 464151
+            },
+            "duration": {
+              "text": "4 hours 48 mins",
+              "value": 17298
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "12.5 km",
+              "value": 12471
+            },
+            "duration": {
+              "text": "18 mins",
+              "value": 1057
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.2 km",
+              "value": 7171
+            },
+            "duration": {
+              "text": "12 mins",
+              "value": 733
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "2.9 km",
+              "value": 2888
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 486
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "0.9 km",
+              "value": 917
+            },
+            "duration": {
+              "text": "2 mins",
+              "value": 123
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.1 km",
+              "value": 7125
+            },
+            "duration": {
+              "text": "12 mins",
+              "value": 700
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "8.1 km",
+              "value": 8065
+            },
+            "duration": {
+              "text": "10 mins",
+              "value": 625
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.9202665,32.8565501|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Kocatepe, Selanik Cd No:19, 06420 Çankaya/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "438 km",
+              "value": 438180
+            },
+            "duration": {
+              "text": "4 hours 35 mins",
+              "value": 16527
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "441 km",
+              "value": 440512
+            },
+            "duration": {
+              "text": "4 hours 41 mins",
+              "value": 16836
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "465 km",
+              "value": 465411
+            },
+            "duration": {
+              "text": "4 hours 52 mins",
+              "value": 17544
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "13.7 km",
+              "value": 13732
+            },
+            "duration": {
+              "text": "22 mins",
+              "value": 1303
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "8.4 km",
+              "value": 8431
+            },
+            "duration": {
+              "text": "16 mins",
+              "value": 979
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "2.0 km",
+              "value": 2044
+            },
+            "duration": {
+              "text": "7 mins",
+              "value": 408
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "2.2 km",
+              "value": 2177
+            },
+            "duration": {
+              "text": "6 mins",
+              "value": 369
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "8.4 km",
+              "value": 8385
+            },
+            "duration": {
+              "text": "16 mins",
+              "value": 946
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "9.5 km",
+              "value": 9480
+            },
+            "duration": {
+              "text": "15 mins",
+              "value": 917
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.957876,32.8179749|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Işınlar, İvedik Cd. no:30/A, 06170 Yenimahalle/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "432 km",
+              "value": 432424
+            },
+            "duration": {
+              "text": "4 hours 28 mins",
+              "value": 16100
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "435 km",
+              "value": 434757
+            },
+            "duration": {
+              "text": "4 hours 33 mins",
+              "value": 16409
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "460 km",
+              "value": 459656
+            },
+            "duration": {
+              "text": "4 hours 45 mins",
+              "value": 17117
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "6.8 km",
+              "value": 6755
+            },
+            "duration": {
+              "text": "13 mins",
+              "value": 796
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "8.6 km",
+              "value": 8587
+            },
+            "duration": {
+              "text": "12 mins",
+              "value": 730
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.7 km",
+              "value": 7660
+            },
+            "duration": {
+              "text": "15 mins",
+              "value": 919
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "6.2 km",
+              "value": 6171
+            },
+            "duration": {
+              "text": "9 mins",
+              "value": 569
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "1.6 km",
+              "value": 1556
+            },
+            "duration": {
+              "text": "5 mins",
+              "value": 291
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "6.1 km",
+              "value": 6130
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 501
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.9357279,32.8229853|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Emniyet, Mevlana Blv. No:54, 06560 Polatlı/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "435 km",
+              "value": 434957
+            },
+            "duration": {
+              "text": "4 hours 28 mins",
+              "value": 16090
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "437 km",
+              "value": 437289
+            },
+            "duration": {
+              "text": "4 hours 33 mins",
+              "value": 16399
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "462 km",
+              "value": 462188
+            },
+            "duration": {
+              "text": "4 hours 45 mins",
+              "value": 17107
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "10.5 km",
+              "value": 10509
+            },
+            "duration": {
+              "text": "14 mins",
+              "value": 866
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "5.2 km",
+              "value": 5238
+            },
+            "duration": {
+              "text": "9 mins",
+              "value": 564
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "5.6 km",
+              "value": 5553
+            },
+            "duration": {
+              "text": "10 mins",
+              "value": 583
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "4.7 km",
+              "value": 4712
+            },
+            "duration": {
+              "text": "6 mins",
+              "value": 373
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "4.8 km",
+              "value": 4797
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 501
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.5 km",
+              "value": 7538
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 496
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.93056199999999,32.845245|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Eti, Gazi Mustafa Kemal Blv. No:84, 06570 Çankaya/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "435 km",
+              "value": 435196
+            },
+            "duration": {
+              "text": "4 hours 29 mins",
+              "value": 16155
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "438 km",
+              "value": 437528
+            },
+            "duration": {
+              "text": "4 hours 34 mins",
+              "value": 16464
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "462 km",
+              "value": 462428
+            },
+            "duration": {
+              "text": "4 hours 46 mins",
+              "value": 17172
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "10.5 km",
+              "value": 10523
+            },
+            "duration": {
+              "text": "16 mins",
+              "value": 932
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.3 km",
+              "value": 7255
+            },
+            "duration": {
+              "text": "12 mins",
+              "value": 728
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "4.6 km",
+              "value": 4550
+            },
+            "duration": {
+              "text": "9 mins",
+              "value": 568
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "3.6 km",
+              "value": 3641
+            },
+            "duration": {
+              "text": "6 mins",
+              "value": 385
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "5.8 km",
+              "value": 5771
+            },
+            "duration": {
+              "text": "11 mins",
+              "value": 662
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "6.4 km",
+              "value": 6400
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 458
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.9078373,32.759853|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Mustafa Kemal, Dumlupınar Blv. No:262, 06510 Çankaya/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "432 km",
+              "value": 431545
+            },
+            "duration": {
+              "text": "4 hours 25 mins",
+              "value": 15912
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "434 km",
+              "value": 433878
+            },
+            "duration": {
+              "text": "4 hours 30 mins",
+              "value": 16221
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "459 km",
+              "value": 458777
+            },
+            "duration": {
+              "text": "4 hours 42 mins",
+              "value": 16929
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.8 km",
+              "value": 11778
+            },
+            "duration": {
+              "text": "15 mins",
+              "value": 900
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "8.6 km",
+              "value": 8553
+            },
+            "duration": {
+              "text": "12 mins",
+              "value": 717
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.2 km",
+              "value": 11223
+            },
+            "duration": {
+              "text": "15 mins",
+              "value": 876
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.7 km",
+              "value": 11681
+            },
+            "duration": {
+              "text": "17 mins",
+              "value": 1038
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.7 km",
+              "value": 11701
+            },
+            "duration": {
+              "text": "17 mins",
+              "value": 1047
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "13.4 km",
+              "value": 13388
+            },
+            "duration": {
+              "text": "13 mins",
+              "value": 755
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "41.00140409999999,29.1128936|40.9818744,29.0576298|41.068616,29.0285355|40.9714189,28.82472199999999|40.0129334,32.740723|39.9333635,32.8597419|39.9333635,32.8597419": {
+    "destination_addresses": [
+      "Göztepe, Mustafa Kaya Sokağı No:1, 34730 Kadıköy/İstanbul, Türkiye",
+      "Ulus, Kelaynak Sk. No:14, 34340 Beşiktaş/İstanbul, Türkiye",
+      "Yeşilköy, İsimsiz Yol, 34149 Bakırköy/İstanbul, Türkiye",
+      "Yuvaköy, 3707. Sk. NO:27, 06105 Yenimahalle/Ankara, Türkiye",
+      "Hacettepe, A.Adnan Saygun Cd., Altındağ/Ankara, Türkiye",
+      "Hacettepe, A.Adnan Saygun Cd., Altındağ/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Finanskent, Finans Cd No:27, 34760 Ümraniye/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "7.6 km",
+              "value": 7593
+            },
+            "duration": {
+              "text": "17 mins",
+              "value": 1025
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "17.9 km",
+              "value": 17889
+            },
+            "duration": {
+              "text": "25 mins",
+              "value": 1508
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "29.3 km",
+              "value": 29275
+            },
+            "duration": {
+              "text": "36 mins",
+              "value": 2145
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "413 km",
+              "value": 413020
+            },
+            "duration": {
+              "text": "4 hours 14 mins",
+              "value": 15211
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "427 km",
+              "value": 427462
+            },
+            "duration": {
+              "text": "4 hours 26 mins",
+              "value": 15974
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "427 km",
+              "value": 427462
+            },
+            "duration": {
+              "text": "4 hours 26 mins",
+              "value": 15974
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.962805,32.893939|40.9818744,29.0576298|41.068616,29.0285355|40.9714189,28.82472199999999|40.0129334,32.740723|39.9333635,32.8597419|39.9333635,32.8597419": {
+    "destination_addresses": [
+      "Göztepe, Mustafa Kaya Sokağı No:1, 34730 Kadıköy/İstanbul, Türkiye",
+      "Ulus, Kelaynak Sk. No:14, 34340 Beşiktaş/İstanbul, Türkiye",
+      "Yeşilköy, İsimsiz Yol, 34149 Bakırköy/İstanbul, Türkiye",
+      "Yuvaköy, 3707. Sk. NO:27, 06105 Yenimahalle/Ankara, Türkiye",
+      "Hacettepe, A.Adnan Saygun Cd., Altındağ/Ankara, Türkiye",
+      "Hacettepe, A.Adnan Saygun Cd., Altındağ/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Seyfi Demirsoy, Ulubat Sk. 45 A, 06160 Altındağ/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "439 km",
+              "value": 438593
+            },
+            "duration": {
+              "text": "4 hours 32 mins",
+              "value": 16337
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "447 km",
+              "value": 446774
+            },
+            "duration": {
+              "text": "4 hours 41 mins",
+              "value": 16860
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "460 km",
+              "value": 460442
+            },
+            "duration": {
+              "text": "4 hours 51 mins",
+              "value": 17441
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "22.5 km",
+              "value": 22517
+            },
+            "duration": {
+              "text": "29 mins",
+              "value": 1747
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "5.4 km",
+              "value": 5388
+            },
+            "duration": {
+              "text": "13 mins",
+              "value": 763
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "5.4 km",
+              "value": 5388
+            },
+            "duration": {
+              "text": "13 mins",
+              "value": 763
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "41.04697,28.8683345|40.9818744,29.0576298|41.068616,29.0285355|40.9714189,28.82472199999999|40.0129334,32.740723|39.9333635,32.8597419|39.9333635,32.8597419": {
+    "destination_addresses": [
+      "Göztepe, Mustafa Kaya Sokağı No:1, 34730 Kadıköy/İstanbul, Türkiye",
+      "Ulus, Kelaynak Sk. No:14, 34340 Beşiktaş/İstanbul, Türkiye",
+      "Yeşilköy, İsimsiz Yol, 34149 Bakırköy/İstanbul, Türkiye",
+      "Yuvaköy, 3707. Sk. NO:27, 06105 Yenimahalle/Ankara, Türkiye",
+      "Hacettepe, A.Adnan Saygun Cd., Altındağ/Ankara, Türkiye",
+      "Hacettepe, A.Adnan Saygun Cd., Altındağ/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Kazım Karabekir, Ulubatlı Sk. No:12/A, 34225 Esenler/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "28.8 km",
+              "value": 28778
+            },
+            "duration": {
+              "text": "36 mins",
+              "value": 2175
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "18.7 km",
+              "value": 18675
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1397
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "21.3 km",
+              "value": 21278
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1361
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "448 km",
+              "value": 447542
+            },
+            "duration": {
+              "text": "4 hours 34 mins",
+              "value": 16464
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "462 km",
+              "value": 461983
+            },
+            "duration": {
+              "text": "4 hours 47 mins",
+              "value": 17227
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "462 km",
+              "value": 461983
+            },
+            "duration": {
+              "text": "4 hours 47 mins",
+              "value": 17227
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "41.0041172,29.0836522|40.9818744,29.0576298|41.068616,29.0285355|40.9714189,28.82472199999999|40.0129334,32.740723|39.9333635,32.8597419|39.9333635,32.8597419": {
+    "destination_addresses": [
+      "Göztepe, Mustafa Kaya Sokağı No:1, 34730 Kadıköy/İstanbul, Türkiye",
+      "Ulus, Kelaynak Sk. No:14, 34340 Beşiktaş/İstanbul, Türkiye",
+      "Yeşilköy, İsimsiz Yol, 34149 Bakırköy/İstanbul, Türkiye",
+      "Yuvaköy, 3707. Sk. NO:27, 06105 Yenimahalle/Ankara, Türkiye",
+      "Hacettepe, A.Adnan Saygun Cd., Altındağ/Ankara, Türkiye",
+      "Hacettepe, A.Adnan Saygun Cd., Altındağ/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Esatpaşa, Gülşen Sk. No:10, 34704 Ataşehir/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "4.2 km",
+              "value": 4245
+            },
+            "duration": {
+              "text": "11 mins",
+              "value": 675
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "13.6 km",
+              "value": 13576
+            },
+            "duration": {
+              "text": "25 mins",
+              "value": 1502
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "26.7 km",
+              "value": 26738
+            },
+            "duration": {
+              "text": "32 mins",
+              "value": 1902
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "415 km",
+              "value": 414504
+            },
+            "duration": {
+              "text": "4 hours 14 mins",
+              "value": 15215
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "429 km",
+              "value": 428712
+            },
+            "duration": {
+              "text": "4 hours 25 mins",
+              "value": 15920
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "429 km",
+              "value": 428712
+            },
+            "duration": {
+              "text": "4 hours 25 mins",
+              "value": 15920
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "41.0391643,29.0004594|40.9818744,29.0576298|41.068616,29.0285355|40.9714189,28.82472199999999|40.0129334,32.740723|39.9333635,32.8597419|39.9333635,32.8597419": {
+    "destination_addresses": [
+      "Göztepe, Mustafa Kaya Sokağı No:1, 34730 Kadıköy/İstanbul, Türkiye",
+      "Ulus, Kelaynak Sk. No:14, 34340 Beşiktaş/İstanbul, Türkiye",
+      "Yeşilköy, İsimsiz Yol, 34149 Bakırköy/İstanbul, Türkiye",
+      "Yuvaköy, 3707. Sk. NO:27, 06105 Yenimahalle/Ankara, Türkiye",
+      "Hacettepe, A.Adnan Saygun Cd., Altındağ/Ankara, Türkiye",
+      "Hacettepe, A.Adnan Saygun Cd., Altındağ/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Vişnezade, Dolmabahçe Sarayı, 34357 Beşiktaş/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "15.2 km",
+              "value": 15174
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1362
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "5.4 km",
+              "value": 5415
+            },
+            "duration": {
+              "text": "13 mins",
+              "value": 795
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "26.5 km",
+              "value": 26484
+            },
+            "duration": {
+              "text": "34 mins",
+              "value": 2012
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "426 km",
+              "value": 425637
+            },
+            "duration": {
+              "text": "4 hours 26 mins",
+              "value": 15934
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "440 km",
+              "value": 439845
+            },
+            "duration": {
+              "text": "4 hours 37 mins",
+              "value": 16639
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "440 km",
+              "value": 439845
+            },
+            "duration": {
+              "text": "4 hours 37 mins",
+              "value": 16639
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "41.0041172,29.0836522|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Esatpaşa, Gülşen Sk. No:10, 34704 Ataşehir/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "8.7 km",
+              "value": 8727
+            },
+            "duration": {
+              "text": "14 mins",
+              "value": 812
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.6 km",
+              "value": 11566
+            },
+            "duration": {
+              "text": "22 mins",
+              "value": 1299
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "23.2 km",
+              "value": 23235
+            },
+            "duration": {
+              "text": "32 mins",
+              "value": 1942
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "422 km",
+              "value": 422286
+            },
+            "duration": {
+              "text": "4 hours 17 mins",
+              "value": 15445
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "432 km",
+              "value": 431687
+            },
+            "duration": {
+              "text": "4 hours 26 mins",
+              "value": 15978
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "434 km",
+              "value": 434357
+            },
+            "duration": {
+              "text": "4 hours 29 mins",
+              "value": 16136
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "430 km",
+              "value": 429709
+            },
+            "duration": {
+              "text": "4 hours 26 mins",
+              "value": 15930
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "422 km",
+              "value": 422144
+            },
+            "duration": {
+              "text": "4 hours 24 mins",
+              "value": 15845
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "425 km",
+              "value": 424534
+            },
+            "duration": {
+              "text": "4 hours 20 mins",
+              "value": 15609
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "41.0047868,29.0838099|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Esatpaşa, Atatürk Cd No: 132/9, 34704 Ataşehir/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "8.8 km",
+              "value": 8802
+            },
+            "duration": {
+              "text": "14 mins",
+              "value": 837
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.6 km",
+              "value": 11641
+            },
+            "duration": {
+              "text": "22 mins",
+              "value": 1324
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "23.3 km",
+              "value": 23311
+            },
+            "duration": {
+              "text": "33 mins",
+              "value": 1967
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "422 km",
+              "value": 422112
+            },
+            "duration": {
+              "text": "4 hours 18 mins",
+              "value": 15459
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "432 km",
+              "value": 431513
+            },
+            "duration": {
+              "text": "4 hours 27 mins",
+              "value": 15992
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "434 km",
+              "value": 434183
+            },
+            "duration": {
+              "text": "4 hours 29 mins",
+              "value": 16151
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "430 km",
+              "value": 429534
+            },
+            "duration": {
+              "text": "4 hours 26 mins",
+              "value": 15944
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "422 km",
+              "value": 421969
+            },
+            "duration": {
+              "text": "4 hours 24 mins",
+              "value": 15860
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "424 km",
+              "value": 424359
+            },
+            "duration": {
+              "text": "4 hours 20 mins",
+              "value": 15624
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "40.9364771,29.136806|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye",
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Maltepe Metro Istasyonu, Altayçeşme, Seri Sk., 34843 Maltepe/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "16.2 km",
+              "value": 16187
+            },
+            "duration": {
+              "text": "22 mins",
+              "value": 1322
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "21.3 km",
+              "value": 21293
+            },
+            "duration": {
+              "text": "30 mins",
+              "value": 1824
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "30.7 km",
+              "value": 30696
+            },
+            "duration": {
+              "text": "41 mins",
+              "value": 2452
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "423 km",
+              "value": 423012
+            },
+            "duration": {
+              "text": "4 hours 19 mins",
+              "value": 15560
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "432 km",
+              "value": 432413
+            },
+            "duration": {
+              "text": "4 hours 28 mins",
+              "value": 16093
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "435 km",
+              "value": 435083
+            },
+            "duration": {
+              "text": "4 hours 31 mins",
+              "value": 16252
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "430 km",
+              "value": 430434
+            },
+            "duration": {
+              "text": "4 hours 27 mins",
+              "value": 16045
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "423 km",
+              "value": 422869
+            },
+            "duration": {
+              "text": "4 hours 26 mins",
+              "value": 15961
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "425 km",
+              "value": 425259
+            },
+            "duration": {
+              "text": "4 hours 22 mins",
+              "value": 15725
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "40.95989,29.0815057|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye"
+    ],
+    "origin_addresses": [
+      "Suadiye, Bağdat Cad. 422a, 34740 Kadıköy/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "7.6 km",
+              "value": 7592
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1401
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "16.9 km",
+              "value": 16890
+            },
+            "duration": {
+              "text": "31 mins",
+              "value": 1877
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "26.5 km",
+              "value": 26481
+            },
+            "duration": {
+              "text": "42 mins",
+              "value": 2543
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "41.0480102,29.0045285|40.9936633,29.0247309|41.0452181,29.0073087|40.9889514,28.8716": {
+    "destination_addresses": [
+      "Kadıköy, Rasimpaşa, 34716 Kadıköy/İstanbul, Türkiye",
+      "Cihannüma, Barbaros Blv. No:31 D:7, 34353 Beşiktaş/İstanbul, Türkiye",
+      "Zuhuratbaba, İncirli Cd. No:113, 34147 Bakırköy/İstanbul, Türkiye"
+    ],
+    "origin_addresses": [
+      "Abbasağa, Bostanüstu Dere Sokağı 16/a, 34353 Beşiktaş/İstanbul, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "14.2 km",
+              "value": 14151
+            },
+            "duration": {
+              "text": "19 mins",
+              "value": 1110
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "0.6 km",
+              "value": 594
+            },
+            "duration": {
+              "text": "3 mins",
+              "value": 181
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "19.6 km",
+              "value": 19619
+            },
+            "duration": {
+              "text": "25 mins",
+              "value": 1524
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.9788965,32.7433229|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Ostim OSB, 100. Yıl Blv No:55, 06374 Yenimahalle/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "2.7 km",
+              "value": 2710
+            },
+            "duration": {
+              "text": "6 mins",
+              "value": 380
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "16.0 km",
+              "value": 16018
+            },
+            "duration": {
+              "text": "21 mins",
+              "value": 1248
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "18.7 km",
+              "value": 18688
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1407
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "16.3 km",
+              "value": 16313
+            },
+            "duration": {
+              "text": "21 mins",
+              "value": 1254
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "6.5 km",
+              "value": 6490
+            },
+            "duration": {
+              "text": "18 mins",
+              "value": 1104
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.1 km",
+              "value": 11139
+            },
+            "duration": {
+              "text": "16 mins",
+              "value": 933
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.9909436,32.7427828|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "İvedik OSB, 1420. Cd. No:20, 06374 Yenimahalle/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "3.9 km",
+              "value": 3904
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 490
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "17.2 km",
+              "value": 17212
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1358
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "19.9 km",
+              "value": 19882
+            },
+            "duration": {
+              "text": "25 mins",
+              "value": 1517
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "17.5 km",
+              "value": 17507
+            },
+            "duration": {
+              "text": "23 mins",
+              "value": 1364
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.7 km",
+              "value": 7684
+            },
+            "duration": {
+              "text": "20 mins",
+              "value": 1214
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "12.3 km",
+              "value": 12332
+            },
+            "duration": {
+              "text": "17 mins",
+              "value": 1043
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.925296,32.8558499|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Cumhuriyet, Mithatpaşa Cd. No:10/12, 06430 Çankaya/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "14.5 km",
+              "value": 14462
+            },
+            "duration": {
+              "text": "18 mins",
+              "value": 1054
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.2 km",
+              "value": 7171
+            },
+            "duration": {
+              "text": "12 mins",
+              "value": 733
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "2.9 km",
+              "value": 2888
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 483
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "0.9 km",
+              "value": 917
+            },
+            "duration": {
+              "text": "2 mins",
+              "value": 123
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.1 km",
+              "value": 7121
+            },
+            "duration": {
+              "text": "12 mins",
+              "value": 696
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "8.1 km",
+              "value": 8065
+            },
+            "duration": {
+              "text": "10 mins",
+              "value": 627
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.9202665,32.8565501|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Kocatepe, Selanik Cd No:19, 06420 Çankaya/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "15.7 km",
+              "value": 15723
+            },
+            "duration": {
+              "text": "22 mins",
+              "value": 1299
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "8.4 km",
+              "value": 8431
+            },
+            "duration": {
+              "text": "16 mins",
+              "value": 979
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "2.0 km",
+              "value": 2044
+            },
+            "duration": {
+              "text": "7 mins",
+              "value": 407
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "2.2 km",
+              "value": 2177
+            },
+            "duration": {
+              "text": "6 mins",
+              "value": 368
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "8.4 km",
+              "value": 8382
+            },
+            "duration": {
+              "text": "16 mins",
+              "value": 942
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "9.5 km",
+              "value": 9480
+            },
+            "duration": {
+              "text": "15 mins",
+              "value": 917
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.957876,32.8179749|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Işınlar, İvedik Cd. no:30/A, 06170 Yenimahalle/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "6.8 km",
+              "value": 6755
+            },
+            "duration": {
+              "text": "13 mins",
+              "value": 797
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "8.6 km",
+              "value": 8587
+            },
+            "duration": {
+              "text": "12 mins",
+              "value": 730
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.7 km",
+              "value": 7660
+            },
+            "duration": {
+              "text": "15 mins",
+              "value": 916
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "6.2 km",
+              "value": 6171
+            },
+            "duration": {
+              "text": "9 mins",
+              "value": 568
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "1.6 km",
+              "value": 1552
+            },
+            "duration": {
+              "text": "5 mins",
+              "value": 288
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "6.1 km",
+              "value": 6130
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 501
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.9357279,32.8229853|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Emniyet, Mevlana Blv. No:54, 06560 Polatlı/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "12.5 km",
+              "value": 12500
+            },
+            "duration": {
+              "text": "14 mins",
+              "value": 863
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "5.2 km",
+              "value": 5238
+            },
+            "duration": {
+              "text": "9 mins",
+              "value": 561
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "5.6 km",
+              "value": 5553
+            },
+            "duration": {
+              "text": "10 mins",
+              "value": 581
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "4.7 km",
+              "value": 4712
+            },
+            "duration": {
+              "text": "6 mins",
+              "value": 372
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "4.8 km",
+              "value": 4794
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 498
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.5 km",
+              "value": 7538
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 497
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.93056199999999,32.845245|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Eti, Gazi Mustafa Kemal Blv. No:84, 06570 Çankaya/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "12.7 km",
+              "value": 12739
+            },
+            "duration": {
+              "text": "15 mins",
+              "value": 928
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "7.3 km",
+              "value": 7255
+            },
+            "duration": {
+              "text": "12 mins",
+              "value": 727
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "4.6 km",
+              "value": 4550
+            },
+            "duration": {
+              "text": "9 mins",
+              "value": 566
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "3.6 km",
+              "value": 3641
+            },
+            "duration": {
+              "text": "6 mins",
+              "value": 385
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "5.8 km",
+              "value": 5767
+            },
+            "duration": {
+              "text": "11 mins",
+              "value": 658
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "6.4 km",
+              "value": 6400
+            },
+            "duration": {
+              "text": "8 mins",
+              "value": 459
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  },
+  "39.9078373,32.759853|39.9648332,32.7502871|39.9035311,32.8101796|39.9220559,32.8544595|39.9248683,32.8530237|39.9667514,32.8073035|39.9458574,32.7999862": {
+    "destination_addresses": [
+      "Ostim OSB, Bağdat Cd. No:386, 06374 Yenimahalle/Ankara, Türkiye",
+      "Kızılırmak, Muhsin Yazıcıoğlu Cd. No:17, 06510 Çankaya/Ankara, Türkiye",
+      "Cumhuriyet, Atatürk Blv No:87, 06420 Çankaya/Ankara, Türkiye",
+      "Kızılay, İzmir-1 Cd. No:6, 06420 Çankaya/Ankara, Türkiye",
+      "Damladol Parkı, Çarşı, Ragıp Tüzün Cd. No:166, 06170 Yenimahalle/Ankara, Türkiye",
+      "1463/13, Gazi, 06560 Yenimahalle/Ankara, Türkiye"
+    ],
+    "origin_addresses": [
+      "Mustafa Kemal, Dumlupınar Blv. No:262, 06510 Çankaya/Ankara, Türkiye"
+    ],
+    "rows": [
+      {
+        "elements": [
+          {
+            "distance": {
+              "text": "12.2 km",
+              "value": 12200
+            },
+            "duration": {
+              "text": "15 mins",
+              "value": 919
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "8.6 km",
+              "value": 8553
+            },
+            "duration": {
+              "text": "12 mins",
+              "value": 732
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.2 km",
+              "value": 11223
+            },
+            "duration": {
+              "text": "15 mins",
+              "value": 891
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.7 km",
+              "value": 11681
+            },
+            "duration": {
+              "text": "18 mins",
+              "value": 1053
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "11.7 km",
+              "value": 11701
+            },
+            "duration": {
+              "text": "18 mins",
+              "value": 1061
+            },
+            "status": "OK"
+          },
+          {
+            "distance": {
+              "text": "13.4 km",
+              "value": 13388
+            },
+            "duration": {
+              "text": "13 mins",
+              "value": 770
+            },
+            "status": "OK"
+          }
+        ]
+      }
+    ],
+    "status": "OK"
+  }
+}
