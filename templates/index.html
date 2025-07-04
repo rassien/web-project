@@ -148,6 +148,9 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="toplu-tab" data-bs-toggle="tab" data-bs-target="#toplu" type="button" role="tab">Toplu Analiz</button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="atama-tab" data-bs-toggle="tab" data-bs-target="#atama" type="button" role="tab">Atama Yönetimi</button>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <!-- Tek Adres Analiz -->
@@ -206,21 +209,26 @@
                                 <div class="result-card" id="resultCard">
                                     <div id="map" class="map-container"></div>
                                     <div class="table-responsive mt-4">
+                                        <div class="d-flex flex-wrap gap-2 mb-2">
+                                            <button id="downloadExcelBtn" class="btn btn-success" style="display:none;">
+                                                <i class="fas fa-file-excel me-2"></i>Excel'e Aktar
+                                            </button>
+                                            <button id="tekAdresAtamaKaydetBtn" class="btn btn-warning" style="display:none;"><i class="fas fa-user-check me-2"></i>Atamaları Kaydet</button>
+                                        </div>
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th>Seç</th>
                                                     <th>Şube Adı</th>
                                                     <th>Adres</th>
                                                     <th>Mesafe (km)</th>
                                                     <th>Süre (dk)</th>
                                                     <th>Norm</th>
+                                                    <th>Toplu Taşıma</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="resultTable"></tbody>
                                         </table>
-                                        <button id="downloadExcelBtn" class="btn btn-success w-100 mt-2" style="display:none;">
-                                            <i class="fas fa-file-excel me-2"></i>Excel'e Aktar
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -277,11 +285,12 @@
                                     <i class="fas fa-spinner fa-spin"></i>
                                     <p class="mt-2">Analiz yapılıyor...</p>
                                 </div>
-                                <div class="result-card" id="bulkResultCard">
+                                <div class="result-card" id="bulkResultCard" style="display:none;">
                                     <div class="table-responsive mt-4">
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th>Seç</th>
                                                     <th>Çalışan Adı</th>
                                                     <th>Çalışan Adresi</th>
                                                     <th>Şube Adı</th>
@@ -289,17 +298,82 @@
                                                     <th>Mesafe (km)</th>
                                                     <th>Süre (dk)</th>
                                                     <th>Norm</th>
+                                                    <th>Toplu Taşıma</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="bulkResultTable"></tbody>
                                         </table>
-                                        <button id="bulkDownloadExcelBtn" class="btn btn-success w-100 mt-2" style="display:none;">
-                                            <i class="fas fa-file-excel me-2"></i>Excel'e Aktar
+                                        <button id="topluAtamaKaydetBtn" class="btn btn-warning w-100 mt-2" style="display:none;">
+                                            <i class="fas fa-user-check me-2"></i>Atamaları Kaydet
                                         </button>
                                     </div>
+                                    <button id="bulkDownloadExcelBtn" class="btn btn-success w-100 mt-2" style="display:none;">
+                                        <i class="fas fa-file-excel me-2"></i>Excel'e Aktar
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="tab-pane fade" id="atama" role="tabpanel">
+                        <!-- Modern Atama Yönetimi Paneli -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-light text-dark">
+                                <h5 class="mb-0"><i class="fas fa-plus me-2"></i>Yeni Atama Ekle</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="addAssignmentForm" class="row g-3">
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" id="newCalisanAdi" placeholder="Çalışan Adı" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" id="newCalisanAdresi" placeholder="Çalışan Adresi" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" id="newSubeAdi" placeholder="Şube Adı" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" id="newSubeAdresi" placeholder="Şube Adresi" required>
+                                    </div>
+                                    <div class="col-12 text-end">
+                                        <button type="submit" class="btn btn-warning"><i class="fas fa-plus me-1"></i>Atama Ekle</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0"><i class="fas fa-tasks me-2"></i>Atama Yönetimi</h4>
+                                <div>
+                                    <button id="downloadAssignmentsBtn" class="btn btn-success btn-sm me-2"><i class="fas fa-file-excel me-1"></i>Excel'e Aktar</button>
+                                    <button id="updateNormsBtn" class="btn btn-primary btn-sm"><i class="fas fa-sync-alt me-1"></i>Normları Güncelle</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex mb-2 gap-2">
+                                    <button id="exportSelectedBtn" class="btn btn-success btn-sm"><i class="fas fa-file-excel me-1"></i>Seçiliyi Excel'e Aktar</button>
+                                    <button id="deleteSelectedBtn" class="btn btn-danger btn-sm"><i class="fas fa-trash me-1"></i>Seçiliyi Sil</button>
+                                    <button id="editSelectedBtn" class="btn btn-warning btn-sm"><i class="fas fa-edit me-1"></i>Düzenle</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Seç</th>
+                                                <th>Çalışan Adı</th>
+                                                <th>Çalışan Adresi</th>
+                                                <th>Şube Adı</th>
+                                                <th>Şube Adresi</th>
+                                                <th>Atama Tarihi</th>
+                                                <th>Norm</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="assignmentListTable"></tbody>
+                                    </table>
+                                </div>
+                                <button id="deleteAllAssignmentsBtn" class="btn btn-danger btn-sm"><i class="fas fa-trash me-1"></i>Tüm Atamaları İptal Et</button>
+                            </div>
+                        </div>
+                        <div id="analizSonuclariTablosu" class="mb-4"></div>
                     </div>
                 </div>
             </div>
@@ -328,6 +402,13 @@
         let selectedBulkSubeAdres = '';
         let bulkExcelResults = [];
 
+        // --- ATAMA PANELİ ---
+        let assignmentSelections = [];
+
+        // Analiz sonuçlarını globalde sakla
+        let lastTekAdresResults = null;
+        let lastTopluResults = [];
+
         document.addEventListener('DOMContentLoaded', function() {
             const dropZone = document.getElementById('dropZone');
             const fileInput = document.getElementById('subelerFile');
@@ -349,6 +430,24 @@
             fileInput.addEventListener('change', (e) => {
                 handleFile(e.target.files[0]);
             });
+
+            // Tüm Atamaları İptal Et butonu
+            const deleteAllBtn = document.getElementById('deleteAllAssignmentsBtn');
+            if (deleteAllBtn) {
+                deleteAllBtn.addEventListener('click', async function() {
+                    if (!confirm('Tüm atamaları iptal etmek istediğinize emin misiniz?')) return;
+                    const response = await fetch('/delete_all_assignments', { method: 'POST' });
+                    const result = await response.json();
+                    const table = document.getElementById('assignmentListTable');
+                    if (result.status === 'success') {
+                        alert('Tüm atamalar iptal edildi!');
+                        if (table) table.innerHTML = '';
+                        loadAssignmentList(); // Tabloyu güncelle
+                    } else {
+                        alert('Silme hatası: ' + (result.error || 'Bilinmeyen hata'));
+                    }
+                });
+            }
         });
 
         function handleFile(file) {
@@ -523,24 +622,16 @@
                 .addTo(map);
 
             // Şubeleri ekle
-            result.nearest_branches.forEach(branch => {
-                L.marker([branch.lat, branch.lon])
-                    .bindPopup(`
-                        <b>Şube:</b> ${branch.sube_adi}<br>
-                        <b>Adres:</b> ${branch.sube_adres}<br>
-                        <b>Mesafe:</b> ${branch.mesafe.toFixed(2)} km<br>
-                        <b>Süre:</b> ${Math.round(branch.sure)} dk<br>
-                        <b>Norm:</b> ${branch.norm}
-                    `)
-                    .addTo(map);
-
+            result.nearest_branches.forEach((branch, idx) => {
                 resultTable.innerHTML += `
                     <tr>
+                        <td><input type='checkbox' class='tekadres-row-checkbox' data-idx='${idx}' checked></td>
                         <td>${branch.sube_adi}</td>
                         <td>${branch.sube_adres}</td>
                         <td>${branch.mesafe.toFixed(2)}</td>
                         <td>${Math.round(branch.sure)}</td>
                         <td>${branch.norm ?? ''}</td>
+                        <td><button class='btn btn-info btn-sm toplu-tasima-btn' data-calisan-adres='${encodeURIComponent(result.address)}' data-sube-adres='${encodeURIComponent(branch.sube_adres)}'>Rota Göster</button></td>
                     </tr>
                 `;
                 // Excel için veri hazırla
@@ -569,6 +660,24 @@
             ]);
             map.fitBounds(bounds, { padding: [50, 50] });
             setTimeout(() => { map.invalidateSize(); }, 300);
+
+            // Analiz sonuçlarını globalde sakla
+            lastTekAdresResults = result;
+            const kaydetBtn = document.getElementById('tekAdresAtamaKaydetBtn');
+            if (kaydetBtn) kaydetBtn.style.display = (result.status === 'success' && result.nearest_branches && result.nearest_branches.length) ? 'block' : 'none';
+
+            // Toplu Taşıma butonuna tıklama işlemi
+            setTimeout(() => {
+                document.querySelectorAll('.toplu-tasima-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const calisanAdres = decodeURIComponent(this.getAttribute('data-calisan-adres'));
+                        const subeAdres = decodeURIComponent(this.getAttribute('data-sube-adres'));
+                        // Yeni sekmede toplu_tasima sayfasına yönlendir
+                        const url = `/toplu_tasima?calisan_adresi=${encodeURIComponent(calisanAdres)}&sube_adresleri=${encodeURIComponent(subeAdres)}`;
+                        window.open(url, '_blank');
+                    });
+                });
+            }, 500);
         }
 
         document.getElementById('downloadExcelBtn').addEventListener('click', function() {
@@ -595,6 +704,39 @@
                 window.URL.revokeObjectURL(url);
             })
             .catch(err => alert('Excel indirme hatası: ' + err.message));
+        });
+
+        document.getElementById('tekAdresAtamaKaydetBtn').addEventListener('click', async function() {
+            if (!lastTekAdresResults || !lastTekAdresResults.nearest_branches) return;
+            const assignments = [];
+            const checkboxes = document.querySelectorAll('.tekadres-row-checkbox');
+            checkboxes.forEach((checkbox, idx) => {
+                if (checkbox.checked) {
+                    const branch = lastTekAdresResults.nearest_branches[idx];
+                    assignments.push({
+                        calisan_adi: lastTekAdresResults.calisan_adi,
+                        calisan_adresi: lastTekAdresResults.address,
+                        sube_adi: branch.sube_adi,
+                        sube_adres: branch.sube_adres
+                    });
+                }
+            });
+            if (!assignments.length) {
+                alert('Lütfen en az bir şube seçin!');
+                return;
+            }
+            const response = await fetch('/assign', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ assignments, subeler: window.subeler || [], sube_ad_column: selectedAdColumn, sube_adres_column: selectedAdresColumn })
+            });
+            const result = await response.json();
+            if (result.status === 'success') {
+                alert('Atamalar başarıyla kaydedildi!');
+                loadAssignmentList();
+            } else {
+                alert('Atama kaydedilemedi: ' + (result.error || 'Bilinmeyen hata'));
+            }
         });
 
         // Çalışanlar dosyası yükleme
@@ -730,27 +872,34 @@
             }
         });
         function displayBulkResults(results) {
+            lastTopluResults = results;
             const resultCard = document.getElementById('bulkResultCard');
             const resultTable = document.getElementById('bulkResultTable');
+            const kaydetBtn = document.getElementById('topluAtamaKaydetBtn');
             const downloadBtn = document.getElementById('bulkDownloadExcelBtn');
+            if (!resultCard || !resultTable || !kaydetBtn || !downloadBtn) return;
             resultCard.style.display = 'block';
             resultTable.innerHTML = '';
-            bulkExcelResults = [];
+            let hasRows = false;
+            let excelResults = [];
+            let rowIndex = 0;
             results.forEach(row => {
                 if (row.status === 'success' && row.nearest_branches && row.nearest_branches.length) {
                     row.nearest_branches.forEach(branch => {
                         resultTable.innerHTML += `
                             <tr>
-                                <td>${row.calisan_adi}</td>
-                                <td>${row.address}</td>
-                                <td>${branch.sube_adi}</td>
-                                <td>${branch.sube_adres}</td>
+                                <td><input type="checkbox" class="bulk-row-checkbox" data-row-index="${rowIndex}"></td>
+                                <td class="calisan_adi">${row.calisan_adi}</td>
+                                <td class="calisan_adresi">${row.address}</td>
+                                <td class="sube_adi">${branch.sube_adi}</td>
+                                <td class="sube_adres">${branch.sube_adres}</td>
                                 <td>${branch.mesafe.toFixed(2)}</td>
                                 <td>${Math.round(branch.sure)}</td>
                                 <td>${branch.norm ?? ''}</td>
+                                <td><button class='btn btn-info btn-sm bulk-toplu-tasima-btn' data-calisan-adres='${encodeURIComponent(row.address)}' data-sube-adres='${encodeURIComponent(branch.sube_adres)}'>Rota Göster</button></td>
                             </tr>
                         `;
-                        bulkExcelResults.push({
+                        excelResults.push({
                             calisan_adi: row.calisan_adi,
                             address: row.address,
                             sube_adi: branch.sube_adi,
@@ -759,21 +908,35 @@
                             sure: branch.sure,
                             norm: branch.norm
                         });
+                        hasRows = true;
+                        rowIndex++;
                     });
                 }
             });
-            if (bulkExcelResults.length > 0) {
-                downloadBtn.style.display = 'block';
-            } else {
-                downloadBtn.style.display = 'none';
-            }
+            kaydetBtn.style.display = hasRows ? 'block' : 'none';
+            downloadBtn.style.display = hasRows ? 'block' : 'none';
+            // Excel'e aktar için veriyi globalde sakla
+            window.bulkExcelResults = excelResults;
+
+            // Toplu Taşıma butonuna tıklama işlemi
+            setTimeout(() => {
+                document.querySelectorAll('.bulk-toplu-tasima-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const calisanAdres = decodeURIComponent(this.getAttribute('data-calisan-adres'));
+                        const subeAdres = decodeURIComponent(this.getAttribute('data-sube-adres'));
+                        // Yeni sekmede toplu_tasima sayfasına yönlendir
+                        const url = `/toplu_tasima?calisan_adresi=${encodeURIComponent(calisanAdres)}&sube_adresleri=${encodeURIComponent(subeAdres)}`;
+                        window.open(url, '_blank');
+                    });
+                });
+            }, 500);
         }
         document.getElementById('bulkDownloadExcelBtn').addEventListener('click', function() {
-            if (!bulkExcelResults.length) return;
+            if (!window.bulkExcelResults || !window.bulkExcelResults.length) return;
             fetch('/download_results', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ results: bulkExcelResults })
+                body: JSON.stringify({ results: window.bulkExcelResults })
             })
             .then(response => {
                 if (!response.ok) throw new Error('Excel indirilemedi!');
@@ -791,6 +954,307 @@
             })
             .catch(err => alert('Excel indirme hatası: ' + err.message));
         });
+        document.getElementById('topluAtamaKaydetBtn').addEventListener('click', async function() {
+            if (!window.bulkExcelResults || !window.bulkExcelResults.length) return;
+            const assignments = [];
+            // Sadece seçili kutulara göre atama yap
+            const checkboxes = document.querySelectorAll('.bulk-row-checkbox');
+            checkboxes.forEach((checkbox, idx) => {
+                if (checkbox.checked) {
+                    const row = window.bulkExcelResults[idx];
+                    assignments.push({
+                        calisan_adi: row.calisan_adi,
+                        calisan_adresi: row.address,
+                        sube_adi: row.sube_adi,
+                        sube_adres: row.sube_adres
+                    });
+                }
+            });
+            if (!assignments.length) {
+                alert('Lütfen en az bir satır seçin!');
+                return;
+            }
+            const response = await fetch('/assign', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ assignments, subeler: bulkSubeler || [], sube_ad_column: selectedBulkSubeAd, sube_adres_column: selectedBulkSubeAdres })
+            });
+            const result = await response.json();
+            if (result.status === 'success') {
+                alert('Atamalar başarıyla kaydedildi!');
+                loadAssignmentList();
+            } else {
+                alert('Atama kaydedilemedi: ' + (result.error || 'Bilinmeyen hata'));
+            }
+        });
+        // --- ATAMA PANELİ ---
+        function showAssignmentPanel(results) {
+            const panel = document.getElementById('assignmentPanel');
+            const table = document.getElementById('assignmentTable');
+            assignmentSelections = [];
+            table.innerHTML = '';
+            results.forEach((row, idx) => {
+                if (row.status === 'success' && row.nearest_branches && row.nearest_branches.length) {
+                    // Varsayılan olarak en yakın şube seçili
+                    assignmentSelections.push({
+                        calisan_adi: row.calisan_adi,
+                        calisan_adresi: row.address,
+                        sube_adi: row.nearest_branches[0].sube_adi,
+                        sube_adres: row.nearest_branches[0].sube_adres
+                    });
+                    let subeOptions = row.nearest_branches.map((b, i) =>
+                        `<option value="${i}">${b.sube_adi} (Norm: ${b.norm})</option>`
+                    ).join('');
+                    table.innerHTML += `
+                        <tr>
+                            <td>${row.calisan_adi}</td>
+                            <td>${row.address}</td>
+                            <td>
+                                <select class="form-select" data-row="${idx}" onchange="updateAssignmentSelection(${idx}, this.value)">
+                                    ${subeOptions}
+                                </select>
+                            </td>
+                            <td>${row.nearest_branches[0].sube_adres}</td>
+                            <td>${row.nearest_branches[0].norm}</td>
+                        </tr>
+                    `;
+                }
+            });
+            panel.style.display = results.length ? 'block' : 'none';
+        }
+        function updateAssignmentSelection(rowIdx, subeIdx) {
+            const row = bulkExcelResults[rowIdx];
+            const branch = row.nearest_branches[subeIdx];
+            assignmentSelections[rowIdx] = {
+                calisan_adi: row.calisan_adi,
+                calisan_adresi: row.address,
+                sube_adi: branch.sube_adi,
+                sube_adres: branch.sube_adres
+            };
+            // Şube adres ve normu güncelle
+            const table = document.getElementById('assignmentTable');
+            table.rows[rowIdx].cells[3].innerText = branch.sube_adres;
+            table.rows[rowIdx].cells[4].innerText = branch.norm;
+        }
+        document.getElementById('assignBtn').addEventListener('click', async function() {
+            if (!assignmentSelections.length) return;
+            const response = await fetch('/assign', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ assignments: assignmentSelections, subeler: bulkSubeler, sube_ad_column: selectedBulkSubeAd, sube_adres_column: selectedBulkSubeAdres })
+            });
+            const result = await response.json();
+            if (result.status === 'success') {
+                alert('Atamalar başarıyla kaydedildi!');
+                loadAssignmentList();
+            } else {
+                alert('Atama hatası: ' + (result.error || 'Bilinmeyen hata'));
+            }
+        });
+        // --- ATAMA LİSTESİ ---
+        async function loadAssignmentList() {
+            const response = await fetch('/assignments');
+            const data = await response.json();
+            renderAssignmentTable(data);
+        }
+
+        function renderAssignmentTable(data) {
+            const table = document.getElementById('assignmentListTable');
+            table.innerHTML = '';
+            data.forEach((row, idx) => {
+                table.innerHTML += `
+                    <tr>
+                        <td><input type="checkbox" class="assignment-row-checkbox" data-idx="${idx}"></td>
+                        <td>${row['Çalışan Adı']}</td>
+                        <td>${row['Çalışan Adresi']}</td>
+                        <td>${row['Şube Adı']}</td>
+                        <td>${row['Şube Adresi']}</td>
+                        <td>${row['Atama Tarihi'] || ''}</td>
+                        <td>${row['Norm'] || ''}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function getSelectedAssignments() {
+            const checkboxes = document.querySelectorAll('.assignment-row-checkbox');
+            const rows = document.querySelectorAll('#assignmentListTable tr');
+            let selected = [];
+            checkboxes.forEach((cb, idx) => {
+                if (cb.checked) {
+                    const tds = rows[idx].querySelectorAll('td');
+                    selected.push({
+                        'Çalışan Adı': tds[1].innerText,
+                        'Çalışan Adresi': tds[2].innerText,
+                        'Şube Adı': tds[3].innerText,
+                        'Şube Adresi': tds[4].innerText,
+                        'Atama Tarihi': tds[5].innerText,
+                        'Norm': tds[6].innerText
+                    });
+                }
+            });
+            return selected;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAssignmentList();
+
+            // Seçiliyi Sil
+            document.getElementById('deleteSelectedBtn').addEventListener('click', async function() {
+                const selected = getSelectedAssignments();
+                if (!selected.length) return alert('Lütfen en az bir kayıt seçin!');
+                if (!confirm('Seçili atamaları silmek istediğinize emin misiniz?')) return;
+                let successCount = 0;
+                for (const row of selected) {
+                    const response = await fetch('/unassign', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            calisan_adi: row['Çalışan Adı'],
+                            sube_adi: row['Şube Adı'],
+                            sube_adres: row['Şube Adresi'],
+                            subeler: [],
+                            sube_ad_column: 'ad',
+                            sube_adres_column: 'adres'
+                        })
+                    });
+                    const result = await response.json();
+                    if(result.status === 'success') successCount++;
+                }
+                alert(successCount + ' kayıt silindi!');
+                loadAssignmentList();
+            });
+
+            // Seçiliyi Excel'e Aktar
+            document.getElementById('exportSelectedBtn').addEventListener('click', function() {
+                const selected = getSelectedAssignments();
+                if (!selected.length) return alert('Lütfen en az bir kayıt seçin!');
+                fetch('/download_results', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({results: selected})
+                })
+                .then(res => res.blob())
+                .then(blob => {
+                    let url = window.URL.createObjectURL(blob);
+                    let a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'secilen_atamalar.xlsx';
+                    a.click();
+                });
+            });
+
+            // Seçiliyi Düzenle (tekli seçim)
+            document.getElementById('editSelectedBtn').addEventListener('click', function() {
+                const selected = getSelectedAssignments();
+                if (selected.length !== 1) return alert('Lütfen düzenlemek için bir kayıt seçin!');
+                alert('Düzenleme özelliği için modal açılacak (devamı eklenebilir).');
+            });
+        });
+
+        // Atama Yönetimi sekmesinde analiz sonuçlarını göster
+        function showAnalizSonuclariTablosu() {
+            const analizTableDiv = document.getElementById('analizSonuclariTablosu');
+            if (!analizTableDiv) return;
+            let html = '';
+            // Tek adres sonucu
+            if (lastTekAdresResults && lastTekAdresResults.status === 'success' && lastTekAdresResults.nearest_branches && lastTekAdresResults.nearest_branches.length) {
+                html += '<h6>Tek Adres Analiz Sonucu</h6>';
+                html += '<table class="table table-sm table-bordered"><thead><tr><th>Çalışan Adı</th><th>Çalışan Adresi</th><th>Şube Adı</th><th>Şube Adresi</th><th>Mesafe</th><th>Norm</th><th>Atama</th></tr></thead><tbody>';
+                lastTekAdresResults.nearest_branches.forEach(branch => {
+                    html += `<tr><td>${lastTekAdresResults.calisan_adi}</td><td>${lastTekAdresResults.address}</td><td>${branch.sube_adi}</td><td>${branch.sube_adres}</td><td>${branch.mesafe.toFixed(2)}</td><td>${branch.norm}</td><td><button class='btn btn-warning btn-sm' onclick='ekleAnalizAtamaTek("${lastTekAdresResults.calisan_adi}", "${lastTekAdresResults.address}", "${branch.sube_adi}", "${branch.sube_adres}")'>Atama Ekle</button></td></tr>`;
+                });
+                html += '</tbody></table>';
+            }
+            // Toplu analiz sonucu
+            if (lastTopluResults && lastTopluResults.length) {
+                html += '<h6>Toplu Analiz Sonuçları</h6>';
+                html += '<table class="table table-sm table-bordered"><thead><tr><th>Çalışan Adı</th><th>Çalışan Adresi</th><th>Şube Adı</th><th>Şube Adresi</th><th>Mesafe</th><th>Norm</th><th>Atama</th></tr></thead><tbody>';
+                lastTopluResults.forEach(row => {
+                    if (row.status === 'success' && row.nearest_branches && row.nearest_branches.length) {
+                        row.nearest_branches.forEach(branch => {
+                            html += `<tr><td>${row.calisan_adi}</td><td>${row.address}</td><td>${branch.sube_adi}</td><td>${branch.sube_adres}</td><td>${branch.mesafe.toFixed(2)}</td><td>${branch.norm}</td><td><button class='btn btn-warning btn-sm' onclick='ekleAnalizAtamaTek("${row.calisan_adi}", "${row.address}", "${branch.sube_adi}", "${branch.sube_adres}")'>Atama Ekle</button></td></tr>`;
+                        });
+                    }
+                });
+                html += '</tbody></table>';
+            }
+            if (!html) html = '<div class="alert alert-info">Henüz analiz yapılmadı.</div>';
+            analizTableDiv.innerHTML = html;
+        }
+        // Atama ekle fonksiyonu (analizden)
+        async function ekleAnalizAtamaTek(calisan_adi, calisan_adresi, sube_adi, sube_adres) {
+            const response = await fetch('/assign', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ assignments: [{ calisan_adi, calisan_adresi, sube_adi, sube_adres }], subeler: [], sube_ad_column: 'ad', sube_adres_column: 'adres' })
+            });
+            const result = await response.json();
+            if (result.status === 'success') {
+                alert('Atama başarıyla eklendi!');
+                loadAssignmentList();
+            } else {
+                alert('Atama eklenemedi: ' + (result.error || 'Bilinmeyen hata'));
+            }
+        };
+        // Seçiliyi Sil
+        if(document.getElementById('deleteSelectedBtn')) {
+            document.getElementById('deleteSelectedBtn').addEventListener('click', async function() {
+                const selected = getSelectedAssignments();
+                if (!selected.length) return alert('Lütfen en az bir kayıt seçin!');
+                if (!confirm('Seçili atamaları silmek istediğinize emin misiniz?')) return;
+                let successCount = 0;
+                for (const row of selected) {
+                    const response = await fetch('/unassign', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            calisan_adi: row['Çalışan Adı'],
+                            sube_adi: row['Şube Adı'],
+                            sube_adres: row['Şube Adresi'],
+                            subeler: [],
+                            sube_ad_column: 'ad',
+                            sube_adres_column: 'adres'
+                        })
+                    });
+                    const result = await response.json();
+                    if(result.status === 'success') successCount++;
+                }
+                alert(successCount + ' kayıt silindi!');
+                loadAssignmentList();
+            });
+        }
+        // Seçiliyi Excel'e Aktar
+        if(document.getElementById('exportSelectedBtn')) {
+            document.getElementById('exportSelectedBtn').addEventListener('click', function() {
+                const selected = getSelectedAssignments();
+                if (!selected.length) return alert('Lütfen en az bir kayıt seçin!');
+                fetch('/download_results', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({results: selected})
+                })
+                .then(res => res.blob())
+                .then(blob => {
+                    let url = window.URL.createObjectURL(blob);
+                    let a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'secilen_atamalar.xlsx';
+                    a.click();
+                });
+            });
+        }
+        // Seçiliyi Düzenle (tekli seçim)
+        if(document.getElementById('editSelectedBtn')) {
+            document.getElementById('editSelectedBtn').addEventListener('click', function() {
+                const selected = getSelectedAssignments();
+                if (selected.length !== 1) return alert('Lütfen düzenlemek için bir kayıt seçin!');
+                alert('Düzenleme özelliği için modal açılacak (devamı eklenebilir).');
+            });
+        }
+        window.onload = function() {
+            loadAssignmentList();
+        };
     </script>
 </body>
 </html> 

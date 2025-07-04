@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atama Yönetimi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+    <div class="container">
+        <a class="navbar-brand" href="/">Ana Sayfa</a>
+        <div class="navbar-nav ms-auto">
+            <span class="nav-item nav-link text-dark">Hoş geldiniz, {{ current_user.username }}</span>
+            <a class="nav-item nav-link text-dark" href="{{ url_for('logout') }}">Çıkış Yap</a>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card mb-4">
+                <div class="card-header bg-light text-dark">
+                    <h5 class="mb-0"><i class="fas fa-plus me-2"></i>Yeni Atama Ekle</h5>
+                </div>
+                <div class="card-body">
+                    <form id="addAssignmentForm" class="row g-3">
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="newCalisanAdi" placeholder="Çalışan Adı" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="newCalisanAdresi" placeholder="Çalışan Adresi" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="newSubeAdi" placeholder="Şube Adı" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="newSubeAdresi" placeholder="Şube Adresi" required>
+                        </div>
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-warning"><i class="fas fa-plus me-1"></i>Atama Ekle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0"><i class="fas fa-tasks me-2"></i>Atama Yönetimi</h4>
+                    <div>
+                        <button id="downloadAssignmentsBtn" class="btn btn-success btn-sm me-2"><i class="fas fa-file-excel me-1"></i>Excel'e Aktar</button>
+                        <button id="updateNormsBtn" class="btn btn-primary btn-sm"><i class="fas fa-sync-alt me-1"></i>Normları Güncelle</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex mb-2 gap-2">
+                        <button id="exportSelectedBtn" class="btn btn-success btn-sm"><i class="fas fa-file-excel me-1"></i>Seçiliyi Excel'e Aktar</button>
+                        <button id="deleteSelectedBtn" class="btn btn-danger btn-sm"><i class="fas fa-trash me-1"></i>Seçiliyi Sil</button>
+                        <button id="editSelectedBtn" class="btn btn-warning btn-sm"><i class="fas fa-edit me-1"></i>Düzenle</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Seç</th>
+                                    <th>Çalışan Adı</th>
+                                    <th>Çalışan Adresi</th>
+                                    <th>Şube Adı</th>
+                                    <th>Şube Adresi</th>
+                                    <th>Atama Tarihi</th>
+                                    <th>Norm</th>
+                                </tr>
+                            </thead>
+                            <tbody id="assignmentListTable"></tbody>
+                        </table>
+                    </div>
+                    <button id="deleteAllAssignmentsBtn" class="btn btn-danger btn-sm"><i class="fas fa-trash me-1"></i>Tüm Atamaları İptal Et</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Düzenleme Modalı -->
+<div class="modal fade" id="editAssignmentModal" tabindex="-1" aria-labelledby="editAssignmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editAssignmentModalLabel">Atamayı Düzenle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editAssignmentForm">
+          <div class="mb-3">
+            <label for="editCalisanAdi" class="form-label">Çalışan Adı</label>
+            <input type="text" class="form-control" id="editCalisanAdi" required>
+          </div>
+          <div class="mb-3">
+            <label for="editCalisanAdresi" class="form-label">Çalışan Adresi</label>
+            <input type="text" class="form-control" id="editCalisanAdresi" required>
+          </div>
+          <div class="mb-3">
+            <label for="editSubeAdi" class="form-label">Şube Adı</label>
+            <input type="text" class="form-control" id="editSubeAdi" required>
+          </div>
+          <div class="mb-3">
+            <label for="editSubeAdresi" class="form-label">Şube Adresi</label>
+            <input type="text" class="form-control" id="editSubeAdresi" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+        <button type="button" class="btn btn-primary" id="saveEditBtn">Kaydet</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+let currentSessionAssignments = [];
+
+function renderAssignmentTable(data) {
+    const table = document.getElementById('assignmentListTable');
+    table.innerHTML = '';
+    data.forEach((row, idx) => {
+        table.innerHTML += `
+            <tr>
+                <td><input type="checkbox" class="assignment-row-checkbox" data-idx="${idx}"></td>
+                <td>${row['Çalışan Adı']}</td>
+                <td>${row['Çalışan Adresi']}</td>
+                <td>${row['Şube Adı']}</td>
+                <td>${row['Şube Adresi']}</td>
+                <td>${row['Atama Tarihi'] || ''}</td>
+                <td>${row['Norm'] || ''}</td>
+            </tr>
+        `;
+    });
+    document.getElementById('seciliAtamalariKaydetBtn').style.display = data.length ? 'inline-block' : 'none';
+    document.getElementById('seciliAtamalariIptalBtn').style.display = data.length ? 'inline-block' : 'none';
+}
+
+async function loadAssignmentList() {
+    const response = await fetch('/assignments');
+    const data = await response.json();
+    renderAssignmentTable(data);
+}
+
+document.getElementById('downloadAssignmentsBtn').addEventListener('click', function() {
+    fetch('/download_assignments')
+        .then(response => {
+            if (!response.ok) throw new Error('Excel indirilemedi!');
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'atama_listesi.xlsx';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(err => alert('Excel indirme hatası: ' + err.message));
+});
+document.getElementById('updateNormsBtn').addEventListener('click', async function() {
+    const response = await fetch('/update_branch_norms_from_assignments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ subeler: [], sube_ad_column: 'ad', sube_adres_column: 'adres' })
+    });
+    const result = await response.json();
+    if (result.status === 'success') {
+        alert('Normlar atama exceline göre güncellendi!');
+        loadAssignmentList();
+    } else {
+        alert('Norm güncelleme hatası: ' + (result.error || 'Bilinmeyen hata'));
+    }
+});
+document.getElementById('addAssignmentForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const calisan_adi = document.getElementById('newCalisanAdi').value.trim();
+    const calisan_adresi = document.getElementById('newCalisanAdresi').value.trim();
+    const sube_adi = document.getElementById('newSubeAdi').value.trim();
+    const sube_adres = document.getElementById('newSubeAdresi').value.trim();
+    if (!calisan_adi || !calisan_adresi || !sube_adi || !sube_adres) {
+        alert('Lütfen tüm alanları doldurun.');
+        return;
+    }
+    const response = await fetch('/assign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ assignments: [{ calisan_adi, calisan_adresi, sube_adi, sube_adres }], subeler: [], sube_ad_column: 'ad', sube_adres_column: 'adres' })
+    });
+    const result = await response.json();
+    if (result.status === 'success') {
+        alert('Atama başarıyla eklendi!');
+        document.getElementById('addAssignmentForm').reset();
+        // currentSessionAssignments'a ekle
+        const now = new Date();
+        const tarih = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+        currentSessionAssignments.push({
+            'Çalışan Adı': calisan_adi,
+            'Çalışan Adresi': calisan_adresi,
+            'Şube Adı': sube_adi,
+            'Şube Adresi': sube_adres,
+            'Atama Tarihi': tarih,
+            'Norm': ''
+        });
+        renderAssignmentTable();
+    } else {
+        alert('Atama eklenemedi: ' + (result.error || 'Bilinmeyen hata'));
+    }
+});
+document.getElementById('deleteAllAssignmentsBtn').addEventListener('click', async function() {
+    if (!confirm('Tüm atamaları iptal etmek istediğinize emin misiniz?')) return;
+    const response = await fetch('/delete_all_assignments', { method: 'POST' });
+    const result = await response.json();
+    if (result.status === 'success') {
+        alert('Tüm atamalar iptal edildi!');
+        currentSessionAssignments = [];
+        renderAssignmentTable();
+    } else {
+        alert('Silme hatası: ' + (result.error || 'Bilinmeyen hata'));
+    }
+});
+
+const seciliAtamalariKaydetBtn = document.getElementById('seciliAtamalariKaydetBtn');
+if (seciliAtamalariKaydetBtn) {
+    seciliAtamalariKaydetBtn.addEventListener('click', async function() {
+        const checkboxes = document.querySelectorAll('.assignment-row-checkbox');
+        const selected = [];
+        const rows = document.querySelectorAll('#assignmentListTable tr');
+        checkboxes.forEach((checkbox, idx) => {
+            if (checkbox.checked) {
+                const tds = rows[idx].querySelectorAll('td');
+                selected.push({
+                    calisan_adi: tds[1].innerText,
+                    calisan_adresi: tds[2].innerText,
+                    sube_adi: tds[3].innerText,
+                    sube_adres: tds[4].innerText
+                });
+            }
+        });
+        if (!selected.length) {
+            alert('Lütfen en az bir atama seçin!');
+            return;
+        }
+        const response = await fetch('/assign', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ assignments: selected, subeler: [], sube_ad_column: 'ad', sube_adres_column: 'adres' })
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+            alert('Seçilen atamalar başarıyla kaydedildi!');
+            loadAssignmentList();
+        } else {
+            alert('Atama kaydedilemedi: ' + (result.error || 'Bilinmeyen hata'));
+        }
+    });
+}
+
+const seciliAtamalariIptalBtn = document.getElementById('seciliAtamalariIptalBtn');
+if (seciliAtamalariIptalBtn) {
+    seciliAtamalariIptalBtn.addEventListener('click', async function() {
+        const checkboxes = document.querySelectorAll('.assignment-row-checkbox');
+        const selected = [];
+        const rows = document.querySelectorAll('#assignmentListTable tr');
+        checkboxes.forEach((checkbox, idx) => {
+            if (checkbox.checked) {
+                const tds = rows[idx].querySelectorAll('td');
+                selected.push({
+                    calisan_adi: tds[1].innerText,
+                    sube_adi: tds[3].innerText,
+                    sube_adres: tds[4].innerText
+                });
+            }
+        });
+        if (!selected.length) {
+            alert('Lütfen en az bir atama seçin!');
+            return;
+        }
+        for (const item of selected) {
+            await fetch('/unassign', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...item, subeler: [], sube_ad_column: 'ad', sube_adres_column: 'adres' })
+            });
+        }
+        alert('Seçilen atamalar iptal edildi!');
+        loadAssignmentList();
+    });
+}
+
+// Seçili satırları döndür
+function getSelectedAssignments() {
+    const checkboxes = document.querySelectorAll('.assignment-row-checkbox');
+    const rows = document.querySelectorAll('#assignmentListTable tr');
+    let selected = [];
+    checkboxes.forEach((cb, idx) => {
+        if (cb.checked) {
+            const tds = rows[idx].querySelectorAll('td');
+            selected.push({
+                'Çalışan Adı': tds[1].innerText,
+                'Çalışan Adresi': tds[2].innerText,
+                'Şube Adı': tds[3].innerText,
+                'Şube Adresi': tds[4].innerText,
+                'Atama Tarihi': tds[5].innerText,
+                'Norm': tds[6].innerText
+            });
+        }
+    });
+    return selected;
+}
+
+// Seçiliyi Excel'e Aktar
+if(document.getElementById('exportSelectedBtn')) {
+    document.getElementById('exportSelectedBtn').addEventListener('click', function() {
+        const selected = getSelectedAssignments();
+        if (!selected.length) return alert('Lütfen en az bir kayıt seçin!');
+        fetch('/download_results', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({results: selected})
+        })
+        .then(res => res.blob())
+        .then(blob => {
+            let url = window.URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = 'secilen_atamalar.xlsx';
+            a.click();
+        });
+    });
+}
+
+// Seçiliyi Sil
+if(document.getElementById('deleteSelectedBtn')) {
+    document.getElementById('deleteSelectedBtn').addEventListener('click', async function() {
+        const selected = getSelectedAssignments();
+        if (!selected.length) return alert('Lütfen en az bir kayıt seçin!');
+        if (!confirm('Seçili atamaları silmek istediğinize emin misiniz?')) return;
+        for (const row of selected) {
+            await fetch('/unassign', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    calisan_adi: row['Çalışan Adı'],
+                    sube_adi: row['Şube Adı'],
+                    sube_adres: row['Şube Adresi'],
+                    subeler: [],
+                    sube_ad_column: 'ad',
+                    sube_adres_column: 'adres'
+                })
+            });
+        }
+        alert('Seçili atamalar silindi!');
+        loadAssignmentList();
+    });
+}
+
+// Seçiliyi Düzenle (tekli seçim)
+let selectedEditIndex = null;
+document.getElementById('editSelectedBtn').addEventListener('click', function() {
+    const checkboxes = document.querySelectorAll('.assignment-row-checkbox:checked');
+    if (checkboxes.length !== 1) {
+        alert('Lütfen düzenlemek için bir satır seçin.');
+        return;
+    }
+    selectedEditIndex = parseInt(checkboxes[0].getAttribute('data-idx'));
+    // Tablo verisini al
+    const table = document.getElementById('assignmentListTable');
+    const row = table.rows[selectedEditIndex];
+    document.getElementById('editCalisanAdi').value = row.cells[1].innerText;
+    document.getElementById('editCalisanAdresi').value = row.cells[2].innerText;
+    document.getElementById('editSubeAdi').value = row.cells[3].innerText;
+    document.getElementById('editSubeAdresi').value = row.cells[4].innerText;
+    // Modalı aç
+    const editModal = new bootstrap.Modal(document.getElementById('editAssignmentModal'));
+    editModal.show();
+});
+
+document.getElementById('saveEditBtn').addEventListener('click', async function() {
+    if (selectedEditIndex === null) return;
+    // Formdan yeni değerleri al
+    const calisan_adi = document.getElementById('editCalisanAdi').value.trim();
+    const calisan_adresi = document.getElementById('editCalisanAdresi').value.trim();
+    const sube_adi = document.getElementById('editSubeAdi').value.trim();
+    const sube_adres = document.getElementById('editSubeAdresi').value.trim();
+    if (!calisan_adi || !calisan_adresi || !sube_adi || !sube_adres) {
+        alert('Lütfen tüm alanları doldurun.');
+        return;
+    }
+    // Eski verileri bul
+    const table = document.getElementById('assignmentListTable');
+    const row = table.rows[selectedEditIndex];
+    const old_calisan_adi = row.cells[1].innerText;
+    const old_calisan_adresi = row.cells[2].innerText;
+    const old_sube_adi = row.cells[3].innerText;
+    const old_sube_adres = row.cells[4].innerText;
+    // Backend'e güncelleme isteği gönder (örnek endpoint: /update_assignment)
+    const response = await fetch('/update_assignment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            old: {
+                calisan_adi: old_calisan_adi,
+                calisan_adresi: old_calisan_adresi,
+                sube_adi: old_sube_adi,
+                sube_adres: old_sube_adres
+            },
+            new: {
+                calisan_adi,
+                calisan_adresi,
+                sube_adi,
+                sube_adres
+            }
+        })
+    });
+    const result = await response.json();
+    if (result.status === 'success') {
+        alert('Atama başarıyla güncellendi!');
+        // Tabloyu güncelle
+        loadAssignmentList();
+        const editModal = bootstrap.Modal.getInstance(document.getElementById('editAssignmentModal'));
+        editModal.hide();
+    } else {
+        alert('Güncelleme hatası: ' + (result.error || 'Bilinmeyen hata'));
+    }
+});
+
+window.onload = function() {
+    currentSessionAssignments = [];
+    loadAssignmentList();
+};
+</script>
+</body>
+</html> 

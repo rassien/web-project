@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for, flash
+from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for, flash, send_file
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import pandas as pd
 from geopy.geocoders import GoogleV3
@@ -10,6 +10,8 @@ from io import BytesIO
 import math
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from werkzeug.security import generate_password_hash, check_password_hash
+import datetime
+import re
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -248,6 +250,7 @@ def download_results():
         results = data.get('results', [])
         excel_data = []
         for branch in results:
+            toplu_tasima_url = f"https://127.0.0.1:5000/toplu_tasima?calisan_adresi={branch.get('address','')}&sube_adresleri={branch.get('sube_adres','')}"
             excel_data.append({
                 'Çalışan Adı': branch.get('calisan_adi', ''),
                 'Çalışan Adresi': branch.get('address', ''),
@@ -255,7 +258,8 @@ def download_results():
                 'Şube Adresi': branch.get('sube_adres', ''),
                 'Mesafe (km)': round(branch.get('mesafe', 0), 2),
                 'Araçla Süre (dk)': round(branch.get('sure', 0)),
-                'Norm': branch.get('norm', '')
+                'Norm': branch.get('norm', ''),
+                'Toplu Taşıma Linki': toplu_tasima_url
             })
         df = pd.DataFrame(excel_data)
         output = BytesIO()
@@ -327,6 +331,286 @@ def bulk_analyze():
         print("Toplu analiz hatası:", e)
         traceback.print_exc()
         return jsonify({'error': str(e)}), 500
+
+ASSIGNMENTS_FILE = "assignments.xlsx"
+
+# Atama dosyasını yükle veya oluştur
+def load_assignments():
+    if os.path.exists(ASSIGNMENTS_FILE):
+        return pd.read_excel(ASSIGNMENTS_FILE)
+    else:
+        df = pd.DataFrame(columns=[
+            'Çalışan Adı', 'Çalışan Adresi', 'Şube Adı', 'Şube Adresi', 'Atama Tarihi', 'Norm'
+        ])
+        df.to_excel(ASSIGNMENTS_FILE, index=False)
+        return df
+
+def save_assignments(df):
+    df.to_excel(ASSIGNMENTS_FILE, index=False)
+
+# Şube normunu güncelle (azalt/arttır)
+def update_branch_norm(sube_ad, sube_adres, delta, subeler, sube_ad_column='ad', sube_adres_column='adres'):
+    for sube in subeler:
+        if sube.get(sube_ad_column) == sube_ad and sube.get(sube_adres_column) == sube_adres:
+            if 'norm' in sube:
+                sube['norm'] = sube.get('norm', 0) + delta
+            else:
+                sube['norm'] = delta
+    return subeler
+
+# Çoklu atama endpointi
+def assign_employees(assignments, subeler, sube_ad_column='ad', sube_adres_column='adres'):
+    df = load_assignments()
+    now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+    for atama in assignments:
+        calisan_adi = atama['calisan_adi']
+        calisan_adresi = atama['calisan_adresi']
+        sube_adi = atama['sube_adi']
+        sube_adres = atama['sube_adres']
+        # Zaten aynı atama var mı kontrol et
+        exists = ((df['Çalışan Adı'] == calisan_adi) &
+                  (df['Çalışan Adresi'] == calisan_adresi) &
+                  (df['Şube Adı'] == sube_adi) &
+                  (df['Şube Adresi'] == sube_adres)).any()
+        if exists:
+            continue  # Aynı atama varsa ekleme
+        # Normu güncelle (arttır)
+        subeler = update_branch_norm(sube_adi, sube_adres, 1, subeler, sube_ad_column, sube_adres_column)
+        # Güncel normu bul
+        norm = None
+        for sube in subeler:
+            if sube.get(sube_ad_column) == sube_adi and sube.get(sube_adres_column) == sube_adres:
+                norm = sube.get('norm', 0)
+        # Atamayı ekle (append yerine concat kullan)
+        new_row = pd.DataFrame([{
+            'Çalışan Adı': calisan_adi,
+            'Çalışan Adresi': calisan_adresi,
+            'Şube Adı': sube_adi,
+            'Şube Adresi': sube_adres,
+            'Atama Tarihi': now,
+            'Norm': norm
+        }])
+        df = pd.concat([df, new_row], ignore_index=True)
+    save_assignments(df)
+    return subeler
+
+# Atamaları listele
+@app.route('/assignments', methods=['GET'])
+@login_required
+def list_assignments():
+    df = load_assignments()
+    return df.to_json(orient='records', force_ascii=False)
+
+# Atama yap (çoklu)
+@app.route('/assign', methods=['POST'])
+@login_required
+def assign():
+    try:
+        data = request.json
+        assignments = data.get('assignments', [])  # [{'calisan_adi':..., 'calisan_adresi':..., 'sube_adi':..., 'sube_adres':...}, ...]
+        subeler = data.get('subeler', [])
+        sube_ad_column = data.get('sube_ad_column', 'ad')
+        sube_adres_column = data.get('sube_adres_column', 'adres')
+        subeler = assign_employees(assignments, subeler, sube_ad_column, sube_adres_column)
+        return jsonify({'status': 'success', 'subeler': subeler})
+    except Exception as e:
+        import traceback
+        print("Atama hatası:", e)
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+# Atama iptal et (tekli)
+@app.route('/unassign', methods=['POST'])
+@login_required
+def unassign():
+    try:
+        data = request.json
+        calisan_adi = data.get('calisan_adi')
+        sube_adi = data.get('sube_adi')
+        sube_adresi = data.get('sube_adres')
+        subeler = data.get('subeler', [])
+        sube_ad_column = data.get('sube_ad_column', 'ad')
+        sube_adres_column = data.get('sube_adres_column', 'adres')
+        df = load_assignments()
+        # Güvenli string dönüşümü
+        def safe_str(val):
+            if val is None:
+                return ""
+            s = str(val).replace('\n', ' ').replace('\r', ' ')
+            s = re.sub(r'\s+', ' ', s)  # Birden fazla boşluğu teke indir
+            return s.strip().lower()
+        # Son atamayı bul ve sil
+        idx = df[
+            (df['Çalışan Adı'].apply(safe_str) == safe_str(calisan_adi)) &
+            (df['Şube Adı'].apply(safe_str) == safe_str(sube_adi)) &
+            (df['Şube Adresi'].apply(safe_str) == safe_str(sube_adresi))
+        ].index
+        if not idx.empty:
+            df = df.drop(idx)
+            save_assignments(df)
+            # Normu geri azalt
+            subeler = update_branch_norm(sube_adi, sube_adresi, -1, subeler, sube_ad_column, sube_adres_column)
+            return jsonify({'status': 'success', 'subeler': subeler})
+        else:
+            return jsonify({'status': 'fail', 'message': 'Atama bulunamadı'})
+    except Exception as e:
+        import traceback
+        print("Atama iptal hatası:", e)
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/download_assignments', methods=['GET'])
+@login_required
+def download_assignments():
+    try:
+        return send_file(ASSIGNMENTS_FILE, as_attachment=True, download_name='atama_listesi.xlsx')
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/update_branch_norms_from_assignments', methods=['POST'])
+@login_required
+def update_branch_norms_from_assignments():
+    try:
+        subeler = request.json.get('subeler', [])
+        sube_ad_column = request.json.get('sube_ad_column', 'ad')
+        sube_adres_column = request.json.get('sube_adres_column', 'adres')
+        df = load_assignments()
+        # Her şubenin en güncel normunu bul
+        norm_map = {}
+        for _, row in df.iterrows():
+            key = (row['Şube Adı'], row['Şube Adresi'])
+            norm_map[key] = row['Norm']
+        # Subeler listesini güncelle
+        for sube in subeler:
+            key = (sube.get(sube_ad_column), sube.get(sube_adres_column))
+            if key in norm_map:
+                sube['norm'] = norm_map[key]
+        return jsonify({'status': 'success', 'subeler': subeler})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/assignments_page')
+@login_required
+def assignments_page():
+    return render_template('assignments.html')
+
+@app.route('/delete_all_assignments', methods=['POST'])
+@login_required
+def delete_all_assignments():
+    try:
+        df = pd.DataFrame(columns=[
+            'Çalışan Adı', 'Çalışan Adresi', 'Şube Adı', 'Şube Adresi', 'Atama Tarihi', 'Norm'
+        ])
+        save_assignments(df)
+        return jsonify({'status': 'success'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/update_assignment', methods=['POST'])
+@login_required
+def update_assignment():
+    try:
+        data = request.json
+        old = data.get('old', {})
+        new = data.get('new', {})
+        df = load_assignments()
+        # Güvenli string dönüşümü
+        def safe_str(val):
+            if val is None:
+                return ""
+            s = str(val).replace('\n', ' ').replace('\r', ' ')
+            s = re.sub(r'\s+', ' ', s)
+            return s.strip().lower()
+        # Eski kaydı bul
+        idx = df[
+            (df['Çalışan Adı'].apply(safe_str) == safe_str(old.get('calisan_adi')))
+            & (df['Çalışan Adresi'].apply(safe_str) == safe_str(old.get('calisan_adresi')))
+            & (df['Şube Adı'].apply(safe_str) == safe_str(old.get('sube_adi')))
+            & (df['Şube Adresi'].apply(safe_str) == safe_str(old.get('sube_adres')))
+        ].index
+        if not idx.empty:
+            # Sadece ilkini güncelle (tekli satır)
+            i = idx[0]
+            df.at[i, 'Çalışan Adı'] = new.get('calisan_adi', '')
+            df.at[i, 'Çalışan Adresi'] = new.get('calisan_adresi', '')
+            df.at[i, 'Şube Adı'] = new.get('sube_adi', '')
+            df.at[i, 'Şube Adresi'] = new.get('sube_adres', '')
+            save_assignments(df)
+            return jsonify({'status': 'success'})
+        else:
+            return jsonify({'status': 'fail', 'error': 'Kayıt bulunamadı'})
+    except Exception as e:
+        import traceback
+        print("Atama güncelleme hatası:", e)
+        traceback.print_exc()
+        return jsonify({'status': 'fail', 'error': str(e)})
+
+def get_transit_steps(origin, destination):
+    url = (
+        f"https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={destination}"
+        f"&mode=transit&key={GOOGLE_MAPS_API_KEY}&language=tr"
+    )
+    response = requests.get(url)
+    data = response.json()
+    steps = []
+    if data.get('status') == 'OK' and data['routes']:
+        for leg in data['routes'][0]['legs']:
+            for step in leg['steps']:
+                step_info = {
+                    'travel_mode': step.get('travel_mode'),
+                    'instruction': step.get('html_instructions', ''),
+                    'duration': step.get('duration', {}).get('text', ''),
+                    'distance': step.get('distance', {}).get('text', ''),
+                }
+                if step.get('transit_details'):
+                    td = step['transit_details']
+                    step_info['line'] = td.get('line', {}).get('short_name', '')
+                    step_info['vehicle'] = td.get('line', {}).get('vehicle', {}).get('name', '')
+                    step_info['departure_stop'] = td.get('departure_stop', {}).get('name', '')
+                    step_info['arrival_stop'] = td.get('arrival_stop', {}).get('name', '')
+                    step_info['num_stops'] = td.get('num_stops', '')
+                steps.append(step_info)
+    return steps
+
+@app.route('/toplu_tasima', methods=['GET', 'POST'])
+@login_required
+def toplu_tasima():
+    rotalar = []
+    calisan_adresi = request.args.get('calisan_adresi', '') or ''
+    sube_adresleri = request.args.get('sube_adresleri', '') or ''
+    if request.method == 'POST':
+        calisan_adresi = request.form.get('calisan_adresi', '').strip()
+        sube_adresleri = request.form.get('sube_adresleri', '').strip()
+    sube_adres_list = [adres.strip() for adres in sube_adresleri.split(',') if adres.strip()]
+    # Şube adreslerinden koordinatları bul
+    sube_coords = []
+    for adres in sube_adres_list:
+        coords = get_coordinates_cached(adres)
+        if coords:
+            sube_coords.append({'adres': adres, 'lat': coords[0], 'lon': coords[1]})
+    # Çalışan adresi koordinatı
+    calisan_coords = get_coordinates_cached(calisan_adresi)
+    if calisan_coords and sube_coords:
+        # En yakın 3 şubeyi bul
+        for sube in sube_coords:
+            sube['mesafe'] = haversine(calisan_coords[0], calisan_coords[1], sube['lat'], sube['lon'])
+        yakinlar = sorted(sube_coords, key=lambda x: x['mesafe'])[:3]
+        for sube in yakinlar:
+            # Mesafe ve süreyi al
+            mesafe_sure = get_distance_and_duration_batch(f"{calisan_coords[0]},{calisan_coords[1]}", [(sube['lat'], sube['lon'])])
+            mesafe = mesafe_sure[0]['distance'] if mesafe_sure and mesafe_sure[0] else 0
+            sure = round(mesafe_sure[0]['duration']) if mesafe_sure and mesafe_sure[0] else 0
+            # Transit adımlarını çek
+            steps = get_transit_steps(calisan_adresi, sube['adres'])
+            rotalar.append({
+                'calisan_adresi': calisan_adresi,
+                'sube_adi': '',
+                'sube_adres': sube['adres'],
+                'mesafe': round(mesafe, 2),
+                'sure': sure,
+                'steps': steps
+            })
+    return render_template('toplu_tasima.html', rotalar=rotalar, calisan_adresi=calisan_adresi, sube_adresleri=sube_adresleri, google_maps_api_key=GOOGLE_MAPS_API_KEY)
 
 if __name__ == '__main__':
     app.run(debug=True) 
