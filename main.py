@@ -1,17 +1,18 @@
-from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for, flash, send_file
+from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for, send_file
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import pandas as pd
 from geopy.geocoders import GoogleV3
 import os
 from dotenv import load_dotenv
-import requests
 import json
 from io import BytesIO
-import math
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 import re
+import math
+import requests
+import traceback
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -68,13 +69,11 @@ def register():
         username = request.form.get('username')
         password = request.form.get('password')
         if username in users:
-            flash('Bu kullanıcı adı zaten kullanılıyor!')
             return redirect(url_for('register'))
         user_id = len(users) + 1
         password_hash = generate_password_hash(password)
         users[username] = User(user_id, username, password_hash)
         save_users(users)
-        flash('Kayıt başarılı! Şimdi giriş yapabilirsiniz.')
         return redirect(url_for('login'))
     return render_template('register.html')
 
@@ -87,7 +86,6 @@ def login():
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
             return redirect(url_for('index'))
-        flash('Geçersiz kullanıcı adı veya şifre!')
     return render_template('login.html')
 
 @app.route('/logout')
@@ -237,9 +235,7 @@ def analyze():
         )
         return jsonify(result)
     except Exception as e:
-        import traceback
         print("Hata:", e)
-        traceback.print_exc()
         return jsonify({'error': str(e)}), 500
 
 @app.route('/download_results', methods=['POST'])
@@ -250,14 +246,14 @@ def download_results():
         results = data.get('results', [])
         excel_data = []
         for branch in results:
-            toplu_tasima_url = f"https://127.0.0.1:5000/toplu_tasima?calisan_adresi={branch.get('address','')}&sube_adresleri={branch.get('sube_adres','')}"
+            toplu_tasima_url = f"http://127.0.0.1:5000/toplu_tasima?calisan_adresi={branch.get('address','')}&sube_adresleri={branch.get('sube_adres','')}"
             excel_data.append({
                 'Çalışan Adı': branch.get('calisan_adi', ''),
                 'Çalışan Adresi': branch.get('address', ''),
                 'Şube Adı': branch.get('sube_adi', ''),
                 'Şube Adresi': branch.get('sube_adres', ''),
-                'Mesafe (km)': round(branch.get('mesafe', 0), 2),
-                'Araçla Süre (dk)': round(branch.get('sure', 0)),
+                'Mesafe (km)': round(branch.get('mesafe', 0) or 0, 2) if branch.get('mesafe') not in [None, ''] else '',
+                'Araçla Süre (dk)': round(branch.get('sure', 0) or 0) if branch.get('sure') not in [None, ''] else '',
                 'Norm': branch.get('norm', ''),
                 'Toplu Taşıma Linki': toplu_tasima_url
             })
@@ -273,9 +269,7 @@ def download_results():
         response.headers["Content-type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         return response
     except Exception as e:
-        import traceback
         print("Excel indirme hatası:", e)
-        traceback.print_exc()
         return jsonify({'error': str(e)}), 500
 
 @app.route('/bulk_analyze', methods=['POST'])
@@ -327,9 +321,7 @@ def bulk_analyze():
                     results.append({'status': 'fail', 'error': str(exc)})
         return jsonify(results)
     except Exception as e:
-        import traceback
         print("Toplu analiz hatası:", e)
-        traceback.print_exc()
         return jsonify({'error': str(e)}), 500
 
 ASSIGNMENTS_FILE = "assignments.xlsx"
@@ -414,9 +406,7 @@ def assign():
         subeler = assign_employees(assignments, subeler, sube_ad_column, sube_adres_column)
         return jsonify({'status': 'success', 'subeler': subeler})
     except Exception as e:
-        import traceback
         print("Atama hatası:", e)
-        traceback.print_exc()
         return jsonify({'error': str(e)}), 500
 
 # Atama iptal et (tekli)
@@ -454,9 +444,7 @@ def unassign():
         else:
             return jsonify({'status': 'fail', 'message': 'Atama bulunamadı'})
     except Exception as e:
-        import traceback
         print("Atama iptal hatası:", e)
-        traceback.print_exc()
         return jsonify({'error': str(e)}), 500
 
 @app.route('/download_assignments', methods=['GET'])
@@ -540,9 +528,7 @@ def update_assignment():
         else:
             return jsonify({'status': 'fail', 'error': 'Kayıt bulunamadı'})
     except Exception as e:
-        import traceback
         print("Atama güncelleme hatası:", e)
-        traceback.print_exc()
         return jsonify({'status': 'fail', 'error': str(e)})
 
 def get_transit_steps(origin, destination):

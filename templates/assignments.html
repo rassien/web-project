@@ -6,14 +6,67 @@
     <title>Atama Yönetimi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --vakifbank-orange: #E58300;
+            --vakifbank-light-orange: #E58300;
+            --vakifbank-white: #FFFFFF;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: var(--vakifbank-orange) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar .navbar-brand, .navbar .nav-link, .navbar span {
+            color: var(--vakifbank-white) !important;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .card-header {
+            background-color: var(--vakifbank-orange) !important;
+            color: var(--vakifbank-white) !important;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 1.5rem;
+        }
+        .btn-primary, .btn-warning {
+            background-color: var(--vakifbank-orange) !important;
+            border-color: var(--vakifbank-orange) !important;
+            color: var(--vakifbank-white) !important;
+        }
+        .btn-primary:hover, .btn-warning:hover {
+            background-color: var(--vakifbank-light-orange) !important;
+            border-color: var(--vakifbank-light-orange) !important;
+        }
+        .btn-success, .btn-danger, .btn-secondary {
+            border-radius: 8px;
+        }
+        .form-control:focus {
+            border-color: var(--vakifbank-orange);
+            box-shadow: 0 0 0 0.2rem rgba(229, 131, 0, 0.15);
+        }
+        .table thead th {
+            background-color: var(--vakifbank-orange) !important;
+            color: var(--vakifbank-white) !important;
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+<nav class="navbar navbar-expand-lg">
     <div class="container">
-        <a class="navbar-brand" href="/">Ana Sayfa</a>
+        <a class="navbar-brand" href="/">
+            <img src="{{ url_for('static', filename='Logo.png') }}" alt="Vakıfbank Logo" style="height:40px;">
+        </a>
         <div class="navbar-nav ms-auto">
-            <span class="nav-item nav-link text-dark">Hoş geldiniz, {{ current_user.username }}</span>
-            <a class="nav-item nav-link text-dark" href="{{ url_for('logout') }}">Çıkış Yap</a>
+            <span class="nav-item nav-link">Hoş geldiniz, {{ current_user.username }}</span>
+            <a class="nav-item nav-link" href="{{ url_for('logout') }}">Çıkış Yap</a>
         </div>
     </div>
 </nav>
@@ -21,7 +74,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card mb-4">
-                <div class="card-header bg-light text-dark">
+                <div class="card-header">
                     <h5 class="mb-0"><i class="fas fa-plus me-2"></i>Yeni Atama Ekle</h5>
                 </div>
                 <div class="card-body">
@@ -39,24 +92,24 @@
                             <input type="text" class="form-control" id="newSubeAdresi" placeholder="Şube Adresi" required>
                         </div>
                         <div class="col-12 text-end">
-                            <button type="submit" class="btn btn-warning"><i class="fas fa-plus me-1"></i>Atama Ekle</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Atama Ekle</button>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="card">
-                <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0"><i class="fas fa-tasks me-2"></i>Atama Yönetimi</h4>
                     <div>
                         <button id="downloadAssignmentsBtn" class="btn btn-success btn-sm me-2"><i class="fas fa-file-excel me-1"></i>Excel'e Aktar</button>
-                        <button id="updateNormsBtn" class="btn btn-primary btn-sm"><i class="fas fa-sync-alt me-1"></i>Normları Güncelle</button>
+                        <button id="updateNormsBtn" class="btn btn-success btn-sm"><i class="fas fa-sync-alt me-1"></i>Normları Güncelle</button>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="d-flex mb-2 gap-2">
                         <button id="exportSelectedBtn" class="btn btn-success btn-sm"><i class="fas fa-file-excel me-1"></i>Seçiliyi Excel'e Aktar</button>
                         <button id="deleteSelectedBtn" class="btn btn-danger btn-sm"><i class="fas fa-trash me-1"></i>Seçiliyi Sil</button>
-                        <button id="editSelectedBtn" class="btn btn-warning btn-sm"><i class="fas fa-edit me-1"></i>Düzenle</button>
+                        <button id="editSelectedBtn" class="btn btn-primary btn-sm"><i class="fas fa-edit me-1"></i>Düzenle</button>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -115,6 +168,7 @@
     </div>
   </div>
 </div>
+<div id="infoMessage" class="alert" style="display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;min-width:300px;"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 let currentSessionAssignments = [];
@@ -161,7 +215,7 @@ document.getElementById('downloadAssignmentsBtn').addEventListener('click', func
             a.remove();
             window.URL.revokeObjectURL(url);
         })
-        .catch(err => alert('Excel indirme hatası: ' + err.message));
+        .catch(err => showInfoMessage('Excel indirme hatası: ' + err.message, 'danger'));
 });
 document.getElementById('updateNormsBtn').addEventListener('click', async function() {
     const response = await fetch('/update_branch_norms_from_assignments', {
@@ -171,10 +225,10 @@ document.getElementById('updateNormsBtn').addEventListener('click', async functi
     });
     const result = await response.json();
     if (result.status === 'success') {
-        alert('Normlar atama exceline göre güncellendi!');
+        showInfoMessage('Normlar atama exceline göre güncellendi!', 'success');
         loadAssignmentList();
     } else {
-        alert('Norm güncelleme hatası: ' + (result.error || 'Bilinmeyen hata'));
+        showInfoMessage('Norm güncelleme hatası: ' + (result.error || 'Bilinmeyen hata'), 'danger');
     }
 });
 document.getElementById('addAssignmentForm').addEventListener('submit', async function(e) {
@@ -184,7 +238,7 @@ document.getElementById('addAssignmentForm').addEventListener('submit', async fu
     const sube_adi = document.getElementById('newSubeAdi').value.trim();
     const sube_adres = document.getElementById('newSubeAdresi').value.trim();
     if (!calisan_adi || !calisan_adresi || !sube_adi || !sube_adres) {
-        alert('Lütfen tüm alanları doldurun.');
+        showInfoMessage('Lütfen tüm alanları doldurun.', 'danger');
         return;
     }
     const response = await fetch('/assign', {
@@ -194,7 +248,7 @@ document.getElementById('addAssignmentForm').addEventListener('submit', async fu
     });
     const result = await response.json();
     if (result.status === 'success') {
-        alert('Atama başarıyla eklendi!');
+        showInfoMessage('Atama başarıyla eklendi!', 'success');
         document.getElementById('addAssignmentForm').reset();
         // currentSessionAssignments'a ekle
         const now = new Date();
@@ -209,7 +263,7 @@ document.getElementById('addAssignmentForm').addEventListener('submit', async fu
         });
         renderAssignmentTable();
     } else {
-        alert('Atama eklenemedi: ' + (result.error || 'Bilinmeyen hata'));
+        showInfoMessage('Atama eklenemedi: ' + (result.error || 'Bilinmeyen hata'), 'danger');
     }
 });
 document.getElementById('deleteAllAssignmentsBtn').addEventListener('click', async function() {
@@ -217,11 +271,11 @@ document.getElementById('deleteAllAssignmentsBtn').addEventListener('click', asy
     const response = await fetch('/delete_all_assignments', { method: 'POST' });
     const result = await response.json();
     if (result.status === 'success') {
-        alert('Tüm atamalar iptal edildi!');
+        showInfoMessage('Tüm atamalar iptal edildi!', 'success');
         currentSessionAssignments = [];
         renderAssignmentTable();
     } else {
-        alert('Silme hatası: ' + (result.error || 'Bilinmeyen hata'));
+        showInfoMessage('Silme hatası: ' + (result.error || 'Bilinmeyen hata'), 'danger');
     }
 });
 
@@ -243,7 +297,7 @@ if (seciliAtamalariKaydetBtn) {
             }
         });
         if (!selected.length) {
-            alert('Lütfen en az bir atama seçin!');
+            showInfoMessage('Lütfen en az bir atama seçin!', 'danger');
             return;
         }
         const response = await fetch('/assign', {
@@ -253,10 +307,10 @@ if (seciliAtamalariKaydetBtn) {
         });
         const result = await response.json();
         if (result.status === 'success') {
-            alert('Seçilen atamalar başarıyla kaydedildi!');
+            showInfoMessage('Seçilen atamalar başarıyla kaydedildi!', 'success');
             loadAssignmentList();
         } else {
-            alert('Atama kaydedilemedi: ' + (result.error || 'Bilinmeyen hata'));
+            showInfoMessage('Atama kaydedilemedi: ' + (result.error || 'Bilinmeyen hata'), 'danger');
         }
     });
 }
@@ -278,7 +332,7 @@ if (seciliAtamalariIptalBtn) {
             }
         });
         if (!selected.length) {
-            alert('Lütfen en az bir atama seçin!');
+            showInfoMessage('Lütfen en az bir atama seçin!', 'danger');
             return;
         }
         for (const item of selected) {
@@ -288,7 +342,7 @@ if (seciliAtamalariIptalBtn) {
                 body: JSON.stringify({ ...item, subeler: [], sube_ad_column: 'ad', sube_adres_column: 'adres' })
             });
         }
-        alert('Seçilen atamalar iptal edildi!');
+        showInfoMessage('Seçilen atamalar iptal edildi!', 'success');
         loadAssignmentList();
     });
 }
@@ -318,11 +372,21 @@ function getSelectedAssignments() {
 if(document.getElementById('exportSelectedBtn')) {
     document.getElementById('exportSelectedBtn').addEventListener('click', function() {
         const selected = getSelectedAssignments();
-        if (!selected.length) return alert('Lütfen en az bir kayıt seçin!');
+        if (!selected.length) return showInfoMessage('Lütfen en az bir kayıt seçin!', 'danger');
+        // Anahtarları backend ile uyumlu hale getir
+        const converted = selected.map(row => ({
+            calisan_adi: row['Çalışan Adı'],
+            address: row['Çalışan Adresi'],
+            sube_adi: row['Şube Adı'],
+            sube_adres: row['Şube Adresi'],
+            norm: row['Norm'],
+            mesafe: 0,
+            sure: 0
+        }));
         fetch('/download_results', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({results: selected})
+            body: JSON.stringify({results: converted})
         })
         .then(res => res.blob())
         .then(blob => {
@@ -339,7 +403,7 @@ if(document.getElementById('exportSelectedBtn')) {
 if(document.getElementById('deleteSelectedBtn')) {
     document.getElementById('deleteSelectedBtn').addEventListener('click', async function() {
         const selected = getSelectedAssignments();
-        if (!selected.length) return alert('Lütfen en az bir kayıt seçin!');
+        if (!selected.length) return showInfoMessage('Lütfen en az bir kayıt seçin!', 'danger');
         if (!confirm('Seçili atamaları silmek istediğinize emin misiniz?')) return;
         for (const row of selected) {
             await fetch('/unassign', {
@@ -355,7 +419,7 @@ if(document.getElementById('deleteSelectedBtn')) {
                 })
             });
         }
-        alert('Seçili atamalar silindi!');
+        showInfoMessage('Seçili atamalar silindi!', 'success');
         loadAssignmentList();
     });
 }
@@ -365,7 +429,7 @@ let selectedEditIndex = null;
 document.getElementById('editSelectedBtn').addEventListener('click', function() {
     const checkboxes = document.querySelectorAll('.assignment-row-checkbox:checked');
     if (checkboxes.length !== 1) {
-        alert('Lütfen düzenlemek için bir satır seçin.');
+        showInfoMessage('Lütfen düzenlemek için bir satır seçin.', 'danger');
         return;
     }
     selectedEditIndex = parseInt(checkboxes[0].getAttribute('data-idx'));
@@ -389,7 +453,7 @@ document.getElementById('saveEditBtn').addEventListener('click', async function(
     const sube_adi = document.getElementById('editSubeAdi').value.trim();
     const sube_adres = document.getElementById('editSubeAdresi').value.trim();
     if (!calisan_adi || !calisan_adresi || !sube_adi || !sube_adres) {
-        alert('Lütfen tüm alanları doldurun.');
+        showInfoMessage('Lütfen tüm alanları doldurun.', 'danger');
         return;
     }
     // Eski verileri bul
@@ -420,13 +484,13 @@ document.getElementById('saveEditBtn').addEventListener('click', async function(
     });
     const result = await response.json();
     if (result.status === 'success') {
-        alert('Atama başarıyla güncellendi!');
+        showInfoMessage('Atama başarıyla güncellendi!', 'success');
         // Tabloyu güncelle
         loadAssignmentList();
         const editModal = bootstrap.Modal.getInstance(document.getElementById('editAssignmentModal'));
         editModal.hide();
     } else {
-        alert('Güncelleme hatası: ' + (result.error || 'Bilinmeyen hata'));
+        showInfoMessage('Güncelleme hatası: ' + (result.error || 'Bilinmeyen hata'), 'danger');
     }
 });
 
@@ -434,6 +498,14 @@ window.onload = function() {
     currentSessionAssignments = [];
     loadAssignmentList();
 };
+
+function showInfoMessage(msg, type = 'success') {
+    const infoDiv = document.getElementById('infoMessage');
+    infoDiv.innerText = msg;
+    infoDiv.className = 'alert alert-' + (type === 'success' ? 'success' : 'danger');
+    infoDiv.style.display = 'block';
+    setTimeout(() => { infoDiv.style.display = 'none'; }, 3000);
+}
 </script>
 </body>
 </html> 
