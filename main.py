@@ -152,12 +152,13 @@ def haversine(lat1, lon1, lat2, lon2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return R * c
 
-def process_single_address_batch(calisan_adi, calisan_adresi, sube_coords, k, max_distance_km=None, filter_by_city=False, haversine_limit=10):
+def process_single_address_batch(calisan_adi, calisan_adresi, sube_coords, k, max_distance_km=None, filter_by_city=False, haversine_limit=10, tckn=''):
     result = {
         'calisan_adi': calisan_adi,
         'address': calisan_adresi,
         'status': 'fail',
-        'nearest_branches': []
+        'nearest_branches': [],
+        'tckn': tckn
     }
     location = get_coordinates_cached(calisan_adresi)
     if not location:
@@ -211,6 +212,7 @@ def analyze():
     try:
         data = request.json
         calisan_adi = data.get('calisan_adi')
+        tckn = data.get('tckn', '')
         calisan_adresi = data.get('calisan_adresi')
         subeler = data.get('subeler', [])
         ad_column = data.get('ad_column', 'ad')
@@ -238,7 +240,8 @@ def analyze():
             sube_coords,
             k,
             max_distance_km if max_distance_km > 0 else None,
-            filter_by_city
+            filter_by_city,
+            tckn=tckn
         )
         return jsonify(result)
     except Exception as e:
@@ -255,6 +258,7 @@ def download_results():
         for branch in results:
             toplu_tasima_url = f"http://127.0.0.1:5000/toplu_tasima?calisan_adresi={branch.get('address','')}&sube_adresleri={branch.get('sube_adres','')}"
             excel_data.append({
+                'TCKN': branch.get('tckn', ''),
                 'Çalışan Adı': branch.get('calisan_adi', ''),
                 'Çalışan Adresi': branch.get('address', ''),
                 'Şube Adı': branch.get('sube_adi', ''),
@@ -265,6 +269,9 @@ def download_results():
                 'Toplu Taşıma Linki': toplu_tasima_url
             })
         df = pd.DataFrame(excel_data)
+        # Sütun sırasını ayarla: TCKN, Çalışan Adı, ...
+        columns = ['TCKN', 'Çalışan Adı', 'Çalışan Adresi', 'Şube Adı', 'Şube Adresi', 'Mesafe (km)', 'Araçla Süre (dk)', 'Norm', 'Toplu Taşıma Linki']
+        df = df[columns]
         output = BytesIO()
         with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
             df.to_excel(writer, index=False, sheet_name='Sonuçlar')
@@ -309,6 +316,7 @@ def bulk_analyze():
                 sube_coords.append(sube_dict)
         results = []
         with ThreadPoolExecutor(max_workers=8) as executor:
+            
             future_to_row = {
                 executor.submit(
                     process_single_address_batch,
@@ -317,9 +325,11 @@ def bulk_analyze():
                     sube_coords,
                     k,
                     max_distance_km if max_distance_km > 0 else None,
-                    filter_by_city
+                    filter_by_city,
+                    tckn=row.get('tckn')
                 ): row for row in calisanlar
             }
+            
             for future in as_completed(future_to_row):
                 try:
                     result = future.result()
@@ -339,7 +349,7 @@ def load_assignments():
         return pd.read_excel(ASSIGNMENTS_FILE)
     else:
         df = pd.DataFrame(columns=[
-            'Çalışan Adı', 'Çalışan Adresi', 'Şube Adı', 'Şube Adresi', 'Atama Tarihi', 'Norm'
+            'TCKN', 'Çalışan Adı', 'Çalışan Adresi', 'Şube Adı', 'Şube Adresi', 'Mesafe (km)', 'Süre (dk)', 'Atama Tarihi', 'Norm'
         ])
         df.to_excel(ASSIGNMENTS_FILE, index=False)
         return df
@@ -390,6 +400,7 @@ def save_bulk_assignments(assignments, subeler, n, sube_ad_column='ad', sube_adr
             if norm_kadro > 0:
                 # Atama kaydını oluştur
                 new_row = pd.DataFrame([{
+                    'TCKN': '', # TCKN bilgisi burada eklenecek
                     'Çalışan Adı': calisan_adi,
                     'Çalışan Adresi': calisan_adresi,
                     'Şube Adı': sube_adi,
@@ -429,8 +440,20 @@ def assign_employees(assignments, subeler, sube_ad_column='ad', sube_adres_colum
     for atama in assignments:
         calisan_adi = atama['calisan_adi']
         calisan_adresi = atama['calisan_adresi']
+        tckn = atama.get('tckn', '')
         sube_adi = atama['sube_adi']
         sube_adres = atama['sube_adres']
+        mesafe = atama.get('mesafe', '')
+        sure = atama.get('sure', '')
+        # Mesafe ve süreyi uygun şekilde yuvarla
+        try:
+            mesafe = round(float(mesafe), 2) if mesafe not in [None, ''] else ''
+        except:
+            mesafe = ''
+        try:
+            sure = int(round(float(sure))) if sure not in [None, ''] else ''
+        except:
+            sure = ''
         # Zaten aynı atama var mı kontrol et
         exists = ((df['Çalışan Adı'] == calisan_adi) &
                   (df['Çalışan Adresi'] == calisan_adresi) &
@@ -447,10 +470,13 @@ def assign_employees(assignments, subeler, sube_ad_column='ad', sube_adres_colum
                 norm = sube.get('norm', 0)
         # Atamayı ekle (append yerine concat kullan)
         new_row = pd.DataFrame([{
+            'TCKN': tckn,
             'Çalışan Adı': calisan_adi,
             'Çalışan Adresi': calisan_adresi,
             'Şube Adı': sube_adi,
             'Şube Adresi': sube_adres,
+            'Mesafe (km)': mesafe,
+            'Süre (dk)': sure,
             'Atama Tarihi': now,
             'Norm': norm
         }])
@@ -463,6 +489,10 @@ def assign_employees(assignments, subeler, sube_ad_column='ad', sube_adres_colum
 @login_required
 def list_assignments():
     df = load_assignments()
+    # Sütun sırasını ayarla: TCKN, Çalışan Adı, ...
+    columns = ['TCKN', 'Çalışan Adı', 'Çalışan Adresi', 'Şube Adı', 'Şube Adresi', 'Mesafe (km)', 'Süre (dk)', 'Atama Tarihi', 'Norm']
+    if all(col in df.columns for col in columns):
+        df = df[columns]
     return df.to_json(orient='records', force_ascii=False)
 
 # Atama yap (çoklu)
@@ -559,7 +589,7 @@ def assignments_page():
 def delete_all_assignments():
     try:
         df = pd.DataFrame(columns=[
-            'Çalışan Adı', 'Çalışan Adresi', 'Şube Adı', 'Şube Adresi', 'Atama Tarihi', 'Norm'
+            'TCKN', 'Çalışan Adı', 'Çalışan Adresi', 'Şube Adı', 'Şube Adresi', 'Atama Tarihi', 'Norm'
         ])
         save_assignments(df)
         return jsonify({'status': 'success'})

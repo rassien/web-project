@@ -234,9 +234,15 @@
                             </div>
                             <div class="card-body">
                                 <form id="analyzeForm">
-                                    <div class="mb-3">
-                                        <label for="calisanAdi" class="form-label">Çalışan Adı</label>
-                                        <input type="text" class="form-control" id="calisanAdi" required>
+                                    <div class="mb-3 row g-2 align-items-center">
+                                        <div class="col-md-7">
+                                            <label for="calisanAdi" class="form-label">Çalışan Adı</label>
+                                            <input type="text" class="form-control" id="calisanAdi" required style="max-width:100%;">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label for="tckn" class="form-label">TCKN</label>
+                                            <input type="text" class="form-control" id="tckn" maxlength="11" pattern="[0-9]{11}" placeholder="TCKN giriniz">
+                                        </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="calisanAdresi" class="form-label">Çalışan Adresi</label>
@@ -292,6 +298,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Seç</th>
+                                                    <th>TCKN</th>
                                                     <th>Şube Adı</th>
                                                     <th>Adres</th>
                                                     <th>Mesafe (km)</th>
@@ -364,6 +371,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Seç</th>
+                                                    <th>TCKN</th>
                                                     <th>Çalışan Adı</th>
                                                     <th>Çalışan Adresi</th>
                                                     <th>Şube Adı</th>
@@ -571,6 +579,7 @@
 
             const data = {
                 calisan_adi: document.getElementById('calisanAdi').value,
+                tckn: document.getElementById('tckn').value,
                 calisan_adresi: document.getElementById('calisanAdresi').value,
                 subeler: window.subeler,
                 ad_column: selectedAdColumn,
@@ -641,6 +650,9 @@
                 resultTable.innerHTML += `
                     <tr>
                         <td><input type='checkbox' class='tekadres-row-checkbox' data-idx='${idx}' checked></td>
+                        <td>${result.tckn || data.tckn || ''}</td>
+                        <td>${result.calisan_adi}</td>
+                        <td>${result.address}</td>
                         <td>${branch.sube_adi}</td>
                         <td>${branch.sube_adres}</td>
                         <td>${branch.mesafe.toFixed(2)}</td>
@@ -651,6 +663,7 @@
                 `;
                 // Excel için veri hazırla
                 lastExcelResults.push({
+                    tckn: result.tckn || data.tckn || '',
                     calisan_adi: result.calisan_adi,
                     address: result.address,
                     sube_adi: branch.sube_adi,
@@ -740,10 +753,13 @@
                 const idx = checkbox.getAttribute('data-idx');
                 const branch = lastTekAdresResults.nearest_branches[idx];
                 assignments.push({
+                    tckn: lastTekAdresResults.tckn || document.getElementById('tckn').value || '',
                     calisan_adi: lastTekAdresResults.calisan_adi,
                     calisan_adresi: lastTekAdresResults.address,
                     sube_adi: branch.sube_adi,
-                    sube_adres: branch.sube_adres
+                    sube_adres: branch.sube_adres,
+                    mesafe: branch.mesafe,
+                    sure: branch.sure
                 });
             });
 
@@ -927,6 +943,7 @@
                             html: `
                                 <tr>
                                     <td><input type="checkbox" class="bulk-row-checkbox" data-row-index="${rowIndex}"></td>
+                                    <td>${row.tckn || ''}</td>
                                     <td class="calisan_adi">${row.calisan_adi}</td>
                                     <td class="calisan_adresi">${row.address}</td>
                                     <td class="sube_adi">${branch.sube_adi}</td>
@@ -938,6 +955,7 @@
                                 </tr>
                             `,
                             excel: {
+                                tckn: row.tckn || '',
                                 calisan_adi: row.calisan_adi,
                                 address: row.address,
                                 sube_adi: branch.sube_adi,
@@ -1078,10 +1096,13 @@
                 if (checkbox.checked) {
                     const row = window.bulkExcelResults[idx];
                     assignments.push({
+                        tckn: row.tckn || '',
                         calisan_adi: row.calisan_adi,
                         calisan_adresi: row.address,
                         sube_adi: row.sube_adi,
-                        sube_adres: row.sube_adres
+                        sube_adres: row.sube_adres,
+                        mesafe: row.mesafe,
+                        sure: row.sure
                     });
                 }
             });
@@ -1186,6 +1207,8 @@
                         <td>${row['Şube Adresi']}</td>
                         <td>${row['Atama Tarihi'] || ''}</td>
                         <td>${row['Norm'] || ''}</td>
+                        <td>${row['Mesafe (km)'] || ''}</td>
+                        <td>${row['Süre (dk)'] || ''}</td>
                     </tr>
                 `;
             });
@@ -1204,7 +1227,9 @@
                         'Şube Adı': tds[3].innerText,
                         'Şube Adresi': tds[4].innerText,
                         'Atama Tarihi': tds[5].innerText,
-                        'Norm': tds[6].innerText
+                        'Norm': tds[6].innerText,
+                        'Mesafe (km)': tds[7].innerText,
+                        'Süre (dk)': tds[8].innerText
                     });
                 }
             });

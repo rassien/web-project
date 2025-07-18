@@ -116,6 +116,7 @@
                             <thead>
                                 <tr>
                                     <th>Seç</th>
+                                    <th>TCKN</th>
                                     <th>Çalışan Adı</th>
                                     <th>Çalışan Adresi</th>
                                     <th>Şube Adı</th>
@@ -180,6 +181,7 @@ function renderAssignmentTable(data) {
         table.innerHTML += `
             <tr>
                 <td><input type="checkbox" class="assignment-row-checkbox" data-idx="${idx}"></td>
+                <td>${row['TCKN'] || ''}</td>
                 <td>${row['Çalışan Adı']}</td>
                 <td>${row['Çalışan Adresi']}</td>
                 <td>${row['Şube Adı']}</td>
@@ -289,10 +291,10 @@ if (seciliAtamalariKaydetBtn) {
             if (checkbox.checked) {
                 const tds = rows[idx].querySelectorAll('td');
                 selected.push({
-                    calisan_adi: tds[1].innerText,
-                    calisan_adresi: tds[2].innerText,
-                    sube_adi: tds[3].innerText,
-                    sube_adres: tds[4].innerText
+                    calisan_adi: tds[2].innerText, // Çalışan Adı
+                    calisan_adresi: tds[3].innerText, // Çalışan Adresi
+                    sube_adi: tds[4].innerText, // Şube Adı
+                    sube_adres: tds[5].innerText // Şube Adresi
                 });
             }
         });
@@ -325,9 +327,9 @@ if (seciliAtamalariIptalBtn) {
             if (checkbox.checked) {
                 const tds = rows[idx].querySelectorAll('td');
                 selected.push({
-                    calisan_adi: tds[1].innerText,
-                    sube_adi: tds[3].innerText,
-                    sube_adres: tds[4].innerText
+                    calisan_adi: tds[2].innerText, // Çalışan Adı
+                    sube_adi: tds[4].innerText, // Şube Adı
+                    sube_adres: tds[5].innerText // Şube Adresi
                 });
             }
         });
@@ -356,12 +358,15 @@ function getSelectedAssignments() {
         if (cb.checked) {
             const tds = rows[idx].querySelectorAll('td');
             selected.push({
-                'Çalışan Adı': tds[1].innerText,
-                'Çalışan Adresi': tds[2].innerText,
-                'Şube Adı': tds[3].innerText,
-                'Şube Adresi': tds[4].innerText,
-                'Atama Tarihi': tds[5].innerText,
-                'Norm': tds[6].innerText
+                'TCKN': tds[1].innerText,
+                'Çalışan Adı': tds[2].innerText,
+                'Çalışan Adresi': tds[3].innerText,
+                'Şube Adı': tds[4].innerText,
+                'Şube Adresi': tds[5].innerText,
+                'Atama Tarihi': tds[6].innerText,
+                'Norm': tds[7].innerText,
+                'Mesafe (km)': tds[8] ? tds[8].innerText : '',
+                'Süre (dk)': tds[9] ? tds[9].innerText : ''
             });
         }
     });
@@ -375,13 +380,14 @@ if(document.getElementById('exportSelectedBtn')) {
         if (!selected.length) return showInfoMessage('Lütfen en az bir kayıt seçin!', 'danger');
         // Anahtarları backend ile uyumlu hale getir
         const converted = selected.map(row => ({
+            tckn: row['TCKN'],
             calisan_adi: row['Çalışan Adı'],
             address: row['Çalışan Adresi'],
             sube_adi: row['Şube Adı'],
             sube_adres: row['Şube Adresi'],
             norm: row['Norm'],
-            mesafe: 0,
-            sure: 0
+            mesafe: row['Mesafe (km)'],
+            sure: row['Süre (dk)']
         }));
         fetch('/download_results', {
             method: 'POST',
@@ -436,10 +442,10 @@ document.getElementById('editSelectedBtn').addEventListener('click', function() 
     // Tablo verisini al
     const table = document.getElementById('assignmentListTable');
     const row = table.rows[selectedEditIndex];
-    document.getElementById('editCalisanAdi').value = row.cells[1].innerText;
-    document.getElementById('editCalisanAdresi').value = row.cells[2].innerText;
-    document.getElementById('editSubeAdi').value = row.cells[3].innerText;
-    document.getElementById('editSubeAdresi').value = row.cells[4].innerText;
+    document.getElementById('editCalisanAdi').value = row.cells[2].innerText; // Çalışan Adı
+    document.getElementById('editCalisanAdresi').value = row.cells[3].innerText; // Çalışan Adresi
+    document.getElementById('editSubeAdi').value = row.cells[4].innerText; // Şube Adı
+    document.getElementById('editSubeAdresi').value = row.cells[5].innerText; // Şube Adresi
     // Modalı aç
     const editModal = new bootstrap.Modal(document.getElementById('editAssignmentModal'));
     editModal.show();
@@ -459,10 +465,10 @@ document.getElementById('saveEditBtn').addEventListener('click', async function(
     // Eski verileri bul
     const table = document.getElementById('assignmentListTable');
     const row = table.rows[selectedEditIndex];
-    const old_calisan_adi = row.cells[1].innerText;
-    const old_calisan_adresi = row.cells[2].innerText;
-    const old_sube_adi = row.cells[3].innerText;
-    const old_sube_adres = row.cells[4].innerText;
+    const old_calisan_adi = row.cells[2].innerText; // Çalışan Adı
+    const old_calisan_adresi = row.cells[3].innerText; // Çalışan Adresi
+    const old_sube_adi = row.cells[4].innerText; // Şube Adı
+    const old_sube_adres = row.cells[5].innerText; // Şube Adresi
     // Backend'e güncelleme isteği gönder (örnek endpoint: /update_assignment)
     const response = await fetch('/update_assignment', {
         method: 'POST',
@@ -506,56 +512,6 @@ function showInfoMessage(msg, type = 'success') {
     infoDiv.style.display = 'block';
     setTimeout(() => { infoDiv.style.display = 'none'; }, 3000);
 }
-</script>
-<!-- Toplu Atama ve Norm Güncelleme Bölümü -->
-<div style="margin: 20px 0;">
-  <button id="btn-bulk-assign" class="btn btn-primary">Toplu Atama Kaydet</button>
-  <button id="btn-export-excel" class="btn btn-success">Excel'e Aktar</button>
-</div>
-<div id="bulk-assign-result" style="margin-top: 20px;"></div>
-<script>
-// Örnek: assignments ve subeler verisi frontend'de hazır olmalı veya AJAX ile alınmalı
-// assignments: [{calisan_adi, calisan_adresi, yakin_subeler: [{sube_adi, sube_adres, mesafe, ...}, ...]}, ...]
-// subeler: [{ad, adres, norm_kadro, ...}, ...]
-let assignments = [];
-let subeler = [];
-let n = 3; // Kullanıcıdan alınabilir
-
-// Toplu Atama Kaydet
-$('#btn-bulk-assign').on('click', function() {
-  if (!assignments.length || !subeler.length) {
-    alert('Atama yapılacak çalışan ve şube verisi eksik!');
-    return;
-  }
-  $.ajax({
-    url: '/save_bulk_assignments',
-    method: 'POST',
-    contentType: 'application/json',
-    data: JSON.stringify({ assignments, subeler, n }),
-    success: function(resp) {
-      if (resp.status === 'success') {
-        let html = '<h5>Atama Sonuçları</h5><table class="table table-bordered"><thead><tr><th>Çalışan</th><th>Şube</th><th>Durum</th><th>Norm Kadro</th></tr></thead><tbody>';
-        resp.atama_kayitlari.forEach(r => {
-          html += `<tr><td>${r.calisan_adi}</td><td>${r.sube_adi || '-'}</td><td>${r.atama_durumu}</td><td>${r.norm_kadro !== undefined ? r.norm_kadro : '-'}</td></tr>`;
-        });
-        html += '</tbody></table>';
-        $('#bulk-assign-result').html(html);
-        subeler = resp.subeler;
-      } else {
-        $('#bulk-assign-result').html('<div class="alert alert-danger">Hata: ' + (resp.error || 'Bilinmeyen hata') + '</div>');
-      }
-    },
-    error: function(xhr) {
-      let msg = (xhr.responseJSON && xhr.responseJSON.error) ? xhr.responseJSON.error : 'Bilinmeyen hata';
-      $('#bulk-assign-result').html('<div class="alert alert-danger"><b>Uyarı:</b> ' + msg + '</div>');
-    }
-  });
-});
-
-// Excel'e Aktar
-$('#btn-export-excel').on('click', function() {
-  window.location.href = '/download_assignments';
-});
 </script>
 </body>
 </html>
