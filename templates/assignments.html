@@ -507,5 +507,55 @@ function showInfoMessage(msg, type = 'success') {
     setTimeout(() => { infoDiv.style.display = 'none'; }, 3000);
 }
 </script>
+<!-- Toplu Atama ve Norm Güncelleme Bölümü -->
+<div style="margin: 20px 0;">
+  <button id="btn-bulk-assign" class="btn btn-primary">Toplu Atama Kaydet</button>
+  <button id="btn-export-excel" class="btn btn-success">Excel'e Aktar</button>
+</div>
+<div id="bulk-assign-result" style="margin-top: 20px;"></div>
+<script>
+// Örnek: assignments ve subeler verisi frontend'de hazır olmalı veya AJAX ile alınmalı
+// assignments: [{calisan_adi, calisan_adresi, yakin_subeler: [{sube_adi, sube_adres, mesafe, ...}, ...]}, ...]
+// subeler: [{ad, adres, norm_kadro, ...}, ...]
+let assignments = [];
+let subeler = [];
+let n = 3; // Kullanıcıdan alınabilir
+
+// Toplu Atama Kaydet
+$('#btn-bulk-assign').on('click', function() {
+  if (!assignments.length || !subeler.length) {
+    alert('Atama yapılacak çalışan ve şube verisi eksik!');
+    return;
+  }
+  $.ajax({
+    url: '/save_bulk_assignments',
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({ assignments, subeler, n }),
+    success: function(resp) {
+      if (resp.status === 'success') {
+        let html = '<h5>Atama Sonuçları</h5><table class="table table-bordered"><thead><tr><th>Çalışan</th><th>Şube</th><th>Durum</th><th>Norm Kadro</th></tr></thead><tbody>';
+        resp.atama_kayitlari.forEach(r => {
+          html += `<tr><td>${r.calisan_adi}</td><td>${r.sube_adi || '-'}</td><td>${r.atama_durumu}</td><td>${r.norm_kadro !== undefined ? r.norm_kadro : '-'}</td></tr>`;
+        });
+        html += '</tbody></table>';
+        $('#bulk-assign-result').html(html);
+        subeler = resp.subeler;
+      } else {
+        $('#bulk-assign-result').html('<div class="alert alert-danger">Hata: ' + (resp.error || 'Bilinmeyen hata') + '</div>');
+      }
+    },
+    error: function(xhr) {
+      let msg = (xhr.responseJSON && xhr.responseJSON.error) ? xhr.responseJSON.error : 'Bilinmeyen hata';
+      $('#bulk-assign-result').html('<div class="alert alert-danger"><b>Uyarı:</b> ' + msg + '</div>');
+    }
+  });
+});
+
+// Excel'e Aktar
+$('#btn-export-excel').on('click', function() {
+  window.location.href = '/download_assignments';
+});
+</script>
 </body>
-</html> 
+</html>

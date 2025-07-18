@@ -724,22 +724,29 @@
         document.getElementById('tekAdresAtamaKaydetBtn').addEventListener('click', async function() {
             if (!lastTekAdresResults || !lastTekAdresResults.nearest_branches) return;
             const assignments = [];
-            const checkboxes = document.querySelectorAll('.tekadres-row-checkbox');
-            checkboxes.forEach((checkbox, idx) => {
-                if (checkbox.checked) {
-                    const branch = lastTekAdresResults.nearest_branches[idx];
-                    assignments.push({
-                        calisan_adi: lastTekAdresResults.calisan_adi,
-                        calisan_adresi: lastTekAdresResults.address,
-                        sube_adi: branch.sube_adi,
-                        sube_adres: branch.sube_adres
-                    });
-                }
-            });
-            if (!assignments.length) {
-                showInfoMessage('Lütfen en az bir şube seçin!', 'warning');
+            const checkboxes = document.querySelectorAll('.tekadres-row-checkbox:checked');
+            
+            if (checkboxes.length === 0) {
+                showInfoMessage('Lütfen bir kayıt seçin', 'warning');
                 return;
             }
+            
+            if (checkboxes.length > 1) {
+                showInfoMessage('Yalnızca bir kayıt seçebilirsiniz', 'warning');
+                return;
+            }
+
+            checkboxes.forEach((checkbox) => {
+                const idx = checkbox.getAttribute('data-idx');
+                const branch = lastTekAdresResults.nearest_branches[idx];
+                assignments.push({
+                    calisan_adi: lastTekAdresResults.calisan_adi,
+                    calisan_adresi: lastTekAdresResults.address,
+                    sube_adi: branch.sube_adi,
+                    sube_adres: branch.sube_adres
+                });
+            });
+
             const response = await fetch('/assign', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1373,4 +1380,4 @@
         }
     </script>
 </body>
-</html> 
+</html>

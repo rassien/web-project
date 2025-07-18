@@ -186,7 +186,14 @@ def process_single_address_batch(calisan_adi, calisan_adresi, sube_coords, k, ma
                 'norm': sube.get('norm', 0)
             }
             mesafeler.append(sube_data)
-    mesafeler = sorted(mesafeler, key=lambda x: x['mesafe'])[:k]
+    mesafeler = sorted(mesafeler, key=lambda x: x['mesafe'])
+    
+    # Normu 2'den küçük olanları filtrele
+    mesafeler = [m for m in mesafeler if m.get('norm', 0) < 2]
+
+    # Son olarak k adet şubeyi al
+    mesafeler = mesafeler[:k]
+    
     mesafeler = sorted(mesafeler, key=lambda x: x['norm'])
     if mesafeler:
         result['status'] = 'success'
@@ -349,6 +356,71 @@ def update_branch_norm(sube_ad, sube_adres, delta, subeler, sube_ad_column='ad',
             else:
                 sube['norm'] = delta
     return subeler
+
+# Şube normunu güncelle (azalt/arttır)
+def update_branch_norm_kadro(sube_ad, sube_adres, delta, subeler, sube_ad_column='ad', sube_adres_column='adres'):
+    for sube in subeler:
+        if sube.get(sube_ad_column) == sube_ad and sube.get(sube_adres_column) == sube_adres:
+            if 'norm_kadro' in sube:
+                sube['norm_kadro'] = sube.get('norm_kadro', 0) + delta
+            else:
+                sube['norm_kadro'] = delta
+    return subeler
+
+# Toplu atama ve norm güncelleme (task.md senaryosu)
+def save_bulk_assignments(assignments, subeler, n, sube_ad_column='ad', sube_adres_column='adres'):
+    df = load_assignments()
+    now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+    atama_kayitlari = []
+    for atama in assignments:
+        calisan_adi = atama['calisan_adi']
+        calisan_adresi = atama['calisan_adresi']
+        yakin_subeler = atama['yakin_subeler']  # [{'sube_adi':..., 'sube_adres':..., 'mesafe':..., ...}, ...]
+        atandi = False
+        for sube in yakin_subeler[:n]:
+            sube_adi = sube['sube_adi']
+            sube_adres = sube['sube_adres']
+            # Şubenin norm_kadro değerini bul
+            norm_kadro = None
+            for s in subeler:
+                if s.get(sube_ad_column) == sube_adi and s.get(sube_adres_column) == sube_adres:
+                    norm_kadro = s.get('norm_kadro', s.get('norm', 0))
+            if norm_kadro is None:
+                continue
+            if norm_kadro > 0:
+                # Atama kaydını oluştur
+                new_row = pd.DataFrame([{
+                    'Çalışan Adı': calisan_adi,
+                    'Çalışan Adresi': calisan_adresi,
+                    'Şube Adı': sube_adi,
+                    'Şube Adresi': sube_adres,
+                    'Atama Tarihi': now,
+                    'Norm': norm_kadro - 1
+                }])
+                df = pd.concat([df, new_row], ignore_index=True)
+                # Normu azalt
+                subeler = update_branch_norm_kadro(sube_adi, sube_adres, -1, subeler, sube_ad_column, sube_adres_column)
+                atama_kayitlari.append({
+                    'calisan_adi': calisan_adi,
+                    'calisan_adresi': calisan_adresi,
+                    'sube_adi': sube_adi,
+                    'sube_adres': sube_adres,
+                    'atama_durumu': 'atandı',
+                    'norm_kadro': norm_kadro - 1
+                })
+                atandi = True
+                break  # Bir çalışana sadece bir atama yapılır
+        if not atandi:
+            atama_kayitlari.append({
+                'calisan_adi': calisan_adi,
+                'calisan_adresi': calisan_adresi,
+                'sube_adi': '',
+                'sube_adres': '',
+                'atama_durumu': 'atanamadı',
+                'norm_kadro': ''
+            })
+    save_assignments(df)
+    return atama_kayitlari, subeler
 
 # Çoklu atama endpointi
 def assign_employees(assignments, subeler, sube_ad_column='ad', sube_adres_column='adres'):
@@ -598,5 +670,32 @@ def toplu_tasima():
             })
     return render_template('toplu_tasima.html', rotalar=rotalar, calisan_adresi=calisan_adresi, sube_adresleri=sube_adresleri, google_maps_api_key=GOOGLE_MAPS_API_KEY)
 
+@app.route('/save_bulk_assignments', methods=['POST'])
+@login_required
+def save_bulk_assignments_endpoint():
+    try:
+        data = request.json
+        assignments = data.get('assignments', [])  # [{'calisan_adi':..., 'calisan_adresi':..., 'yakin_subeler':[...]}]
+        subeler = data.get('subeler', [])
+        n = int(data.get('n', 3))
+        sube_ad_column = data.get('sube_ad_column', 'ad')
+        sube_adres_column = data.get('sube_adres_column', 'adres')
+        # Aynı çalışan birden fazla kez var mı kontrol et
+        seen = set()
+        for atama in assignments:
+            key = (atama.get('calisan_adi'), atama.get('calisan_adresi'))
+            if key in seen:
+                return jsonify({'status': 'fail', 'error': 'Aynı çalışan için birden fazla atama seçtiniz. Lütfen her çalışan için yalnızca bir atama yapınız.'}), 400
+            seen.add(key)
+        # norm_kadro alanı yoksa norm'dan başlat
+        for sube in subeler:
+            if 'norm_kadro' not in sube:
+                sube['norm_kadro'] = sube.get('norm', 0)
+        atama_kayitlari, guncel_subeler = save_bulk_assignments(assignments, subeler, n, sube_ad_column, sube_adres_column)
+        return jsonify({'status': 'success', 'atama_kayitlari': atama_kayitlari, 'subeler': guncel_subeler})
+    except Exception as e:
+        print("Toplu atama kaydetme hatası:", e)
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True)
