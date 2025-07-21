@@ -31,6 +31,9 @@ class User(UserMixin):
 USERS_FILE = "users.xlsx"
 
 def load_users():
+    """
+    Kullanıcıları USERS_FILE'dan yükler ve User nesneleri olarak döndürür.
+    """
     if os.path.exists(USERS_FILE):
         df = pd.read_excel(USERS_FILE)
         users = {}
@@ -44,6 +47,9 @@ def load_users():
     return {}
 
 def save_users(users):
+    """
+    Kullanıcıları USERS_FILE'a kaydeder.
+    """
     data = []
     for username, user in users.items():
         data.append({
@@ -63,6 +69,23 @@ def load_user(user_id):
             return user
     return None
 
+def add_user(users, username, password):
+    """Yeni kullanıcıyı ekler ve şifreyi hash'ler."""
+    user_id = len(users) + 1
+    password_hash = generate_password_hash(password)
+    users[username] = User(user_id, username, password_hash)
+    save_users(users)
+    return users[username]
+
+def validate_user(users, username, password):
+    """Kullanıcı adı ve şifreyi doğrular."""
+    user = users.get(username)
+    if user and check_password_hash(user.password_hash, password):
+        return user
+    return None
+
+# register ve login fonksiyonlarında bu yardımcı fonksiyonları kullanacak şekilde kodu sadeleştiriyorum.
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -70,10 +93,7 @@ def register():
         password = request.form.get('password')
         if username in users:
             return redirect(url_for('register'))
-        user_id = len(users) + 1
-        password_hash = generate_password_hash(password)
-        users[username] = User(user_id, username, password_hash)
-        save_users(users)
+        add_user(users, username, password)
         return redirect(url_for('login'))
     return render_template('register.html')
 
@@ -82,8 +102,8 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        user = users.get(username)
-        if user and check_password_hash(user.password_hash, password):
+        user = validate_user(users, username, password)
+        if user:
             login_user(user)
             return redirect(url_for('index'))
     return render_template('login.html')
@@ -111,6 +131,9 @@ def save_cache():
         json.dump(adres_cache, f, ensure_ascii=False, indent=2)
 
 def get_coordinates_cached(address: str) -> tuple:
+    """
+    Adresin koordinatlarını cache'den veya Google Maps API'dan döndürür.
+    """
     address = address.strip()
     if address in adres_cache:
         return tuple(adres_cache[address])
@@ -153,6 +176,9 @@ def haversine(lat1, lon1, lat2, lon2):
     return R * c
 
 def process_single_address_batch(calisan_adi, calisan_adresi, sube_coords, k, max_distance_km=None, filter_by_city=False, haversine_limit=10, tckn=''):
+    """
+    Bir çalışanın adresi için en yakın şubeleri ve mesafeleri hesaplar.
+    """
     result = {
         'calisan_adi': calisan_adi,
         'address': calisan_adresi,
@@ -204,7 +230,7 @@ def process_single_address_batch(calisan_adi, calisan_adresi, sube_coords, k, ma
 @app.route('/')
 @login_required
 def index():
-    return render_template('index.html')
+    return render_template('index.html', google_maps_api_key=GOOGLE_MAPS_API_KEY)
 
 @app.route('/analyze', methods=['POST'])
 @login_required
@@ -213,6 +239,8 @@ def analyze():
         data = request.json
         calisan_adi = data.get('calisan_adi')
         tckn = data.get('tckn', '')
+        if not tckn or str(tckn).strip() == '':
+            return jsonify({'error': 'TCKN zorunlu bir alandır.'}), 400
         calisan_adresi = data.get('calisan_adresi')
         subeler = data.get('subeler', [])
         ad_column = data.get('ad_column', 'ad')
@@ -357,24 +385,13 @@ def load_assignments():
 def save_assignments(df):
     df.to_excel(ASSIGNMENTS_FILE, index=False)
 
-# Şube normunu güncelle (azalt/arttır)
-def update_branch_norm(sube_ad, sube_adres, delta, subeler, sube_ad_column='ad', sube_adres_column='adres'):
+def update_branch_value(sube_ad, sube_adres, delta, subeler, key='norm', ad_col='ad', adres_col='adres'):
+    """
+    Şube norm veya norm_kadro değerini günceller.
+    """
     for sube in subeler:
-        if sube.get(sube_ad_column) == sube_ad and sube.get(sube_adres_column) == sube_adres:
-            if 'norm' in sube:
-                sube['norm'] = sube.get('norm', 0) + delta
-            else:
-                sube['norm'] = delta
-    return subeler
-
-# Şube normunu güncelle (azalt/arttır)
-def update_branch_norm_kadro(sube_ad, sube_adres, delta, subeler, sube_ad_column='ad', sube_adres_column='adres'):
-    for sube in subeler:
-        if sube.get(sube_ad_column) == sube_ad and sube.get(sube_adres_column) == sube_adres:
-            if 'norm_kadro' in sube:
-                sube['norm_kadro'] = sube.get('norm_kadro', 0) + delta
-            else:
-                sube['norm_kadro'] = delta
+        if sube.get(ad_col) == sube_ad and sube.get(adres_col) == sube_adres:
+            sube[key] = sube.get(key, 0) + delta
     return subeler
 
 # Toplu atama ve norm güncelleme (task.md senaryosu)
@@ -410,7 +427,7 @@ def save_bulk_assignments(assignments, subeler, n, sube_ad_column='ad', sube_adr
                 }])
                 df = pd.concat([df, new_row], ignore_index=True)
                 # Normu azalt
-                subeler = update_branch_norm_kadro(sube_adi, sube_adres, -1, subeler, sube_ad_column, sube_adres_column)
+                subeler = update_branch_value(sube_adi, sube_adres, -1, subeler, key='norm_kadro', ad_col=sube_ad_column, adres_col=sube_adres_column)
                 atama_kayitlari.append({
                     'calisan_adi': calisan_adi,
                     'calisan_adresi': calisan_adresi,
@@ -462,7 +479,7 @@ def assign_employees(assignments, subeler, sube_ad_column='ad', sube_adres_colum
         if exists:
             continue  # Aynı atama varsa ekleme
         # Normu güncelle (arttır)
-        subeler = update_branch_norm(sube_adi, sube_adres, 1, subeler, sube_ad_column, sube_adres_column)
+        subeler = update_branch_value(sube_adi, sube_adres, 1, subeler, key='norm', ad_col=sube_ad_column, adres_col=sube_adres_column)
         # Güncel normu bul
         norm = None
         for sube in subeler:
@@ -538,10 +555,10 @@ def unassign():
             (df['Şube Adresi'].apply(safe_str) == safe_str(sube_adresi))
         ].index
         if not idx.empty:
-            df = df.drop(idx)
+            df = remove_row_from_df(df, lambda row: (row['Çalışan Adı'] == calisan_adi) and (row['Şube Adı'] == sube_adi) and (row['Şube Adresi'] == sube_adresi))
             save_assignments(df)
             # Normu geri azalt
-            subeler = update_branch_norm(sube_adi, sube_adresi, -1, subeler, sube_ad_column, sube_adres_column)
+            subeler = update_branch_value(sube_adi, sube_adresi, -1, subeler, key='norm', ad_col=sube_ad_column, adres_col=sube_adres_column)
             return jsonify({'status': 'success', 'subeler': subeler})
         else:
             return jsonify({'status': 'fail', 'message': 'Atama bulunamadı'})
@@ -621,10 +638,8 @@ def update_assignment():
         if not idx.empty:
             # Sadece ilkini güncelle (tekli satır)
             i = idx[0]
-            df.at[i, 'Çalışan Adı'] = new.get('calisan_adi', '')
-            df.at[i, 'Çalışan Adresi'] = new.get('calisan_adresi', '')
-            df.at[i, 'Şube Adı'] = new.get('sube_adi', '')
-            df.at[i, 'Şube Adresi'] = new.get('sube_adres', '')
+            df = update_row_in_df(df, lambda row: (row['Çalışan Adı'] == old.get('calisan_adi')) and (row['Çalışan Adresi'] == old.get('calisan_adresi')) and (row['Şube Adı'] == old.get('sube_adi')) and (row['Şube Adresi'] == old.get('sube_adres')), {'Çalışan Adı': new.get('calisan_adi', '')})
+            df = update_row_in_df(df, lambda row: (row['Çalışan Adı'] == new.get('calisan_adi', '')) and (row['Çalışan Adresi'] == new.get('calisan_adresi', '')) and (row['Şube Adı'] == new.get('sube_adi', '')) and (row['Şube Adresi'] == new.get('sube_adres', '')), {'Çalışan Adı': new.get('calisan_adi', ''), 'Çalışan Adresi': new.get('calisan_adresi', ''), 'Şube Adı': new.get('sube_adi', ''), 'Şube Adresi': new.get('sube_adres', '')})
             save_assignments(df)
             return jsonify({'status': 'success'})
         else:
@@ -726,6 +741,25 @@ def save_bulk_assignments_endpoint():
     except Exception as e:
         print("Toplu atama kaydetme hatası:", e)
         return jsonify({'error': str(e)}), 500
+
+def add_row_to_df(df, row_dict):
+    """DataFrame'e yeni bir satır ekler."""
+    new_row = pd.DataFrame([row_dict])
+    return pd.concat([df, new_row], ignore_index=True)
+
+def remove_row_from_df(df, condition_func):
+    """Koşula uyan satırları DataFrame'den siler."""
+    idx = df[ df.apply(condition_func, axis=1) ].index
+    return df.drop(idx)
+
+def update_row_in_df(df, condition_func, update_dict):
+    """Koşula uyan ilk satırı günceller."""
+    idx = df[ df.apply(condition_func, axis=1) ].index
+    if not idx.empty:
+        i = idx[0]
+        for key, value in update_dict.items():
+            df.at[i, key] = value
+    return df
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,3 +1,11 @@
+<!--
+    Ana Sayfa Şablonu
+    - Navbar: Kullanıcı ve çıkış işlemleri
+    - Yandan açılan menü: Atama yönetimi
+    - Tablar: Tek adres ve toplu analiz formları
+    - Sonuç kartları: Analiz sonuçları ve harita
+    - JS: Form işlemleri, dosya yükleme, analiz ve atama işlemleri
+-->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -128,6 +136,7 @@
     </style>
 </head>
 <body>
+    <!-- Navbar başlangıcı -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container d-flex align-items-center">
             <!-- Hamburger Menü ve Logo aynı hizada, en solda -->
@@ -146,12 +155,14 @@
             </div>
         </div>
     </nav>
+    <!-- Navbar bitişi -->
 
-    <!-- Yandan Açılan Menü -->
+    <!-- Yandan açılan menü başlangıcı -->
     <div id="sideMenu" class="side-menu">
         <button id="closeMenuBtn" class="close-btn">&times;</button>
         <a href="/assignments_page">Atama Yönetimi</a>
     </div>
+    <!-- Yandan açılan menü bitişi -->
 
     <style>
     .side-menu {
@@ -214,6 +225,7 @@
     });
     </script>
 
+    <!-- Tablar ve formlar başlangıcı -->
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-10">
@@ -299,6 +311,8 @@
                                                 <tr>
                                                     <th>Seç</th>
                                                     <th>TCKN</th>
+                                                    <th>Çalışan Adı</th>
+                                                    <th>Çalışan Adresi</th>
                                                     <th>Şube Adı</th>
                                                     <th>Adres</th>
                                                     <th>Mesafe (km)</th>
@@ -400,13 +414,20 @@
             </div>
         </div>
     </div>
+    <!-- Tablar ve formlar bitişi -->
 
+    <!-- Sonuç kartları ve harita başlangıcı -->
     <div id="infoMessage" class="alert" style="display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;min-width:300px;"></div>
+    <!-- Sonuç kartları ve harita bitişi -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}"></script>
     <script>
+        // ---
+        // Form işlemleri, dosya yükleme, analiz ve atama işlemleri için yardımcı fonksiyonlar
+        // ---
         let map;
         let markers = [];
         let excelColumns = [];
@@ -599,7 +620,20 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    let msg = 'Bir hata oluştu';
+                    try {
+                        const errJson = await response.json();
+                        if (errJson && errJson.error && errJson.error.includes('TCKN zorunlu bir alandır.')) {
+                            showInfoMessage('Lütfen TCKN bilgisini giriniz.', 'danger');
+                            loading.style.display = 'none';
+                            return;
+                        } else if (errJson && errJson.error) {
+                            msg = errJson.error;
+                        }
+                    } catch {}
+                    showInfoMessage(msg + ` (HTTP ${response.status})`, 'danger');
+                    loading.style.display = 'none';
+                    return;
                 }
 
                 const result = await response.json();
@@ -626,26 +660,36 @@
             resultTable.innerHTML = '';
             lastExcelResults = [];
 
-            // Haritayı oluştur
-            if (!map) {
-                map = L.map('map').setView([41.0082, 28.9784], 10);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(map);
-            } else {
-                map.eachLayer((layer) => {
-                    if (layer instanceof L.Marker) {
-                        map.removeLayer(layer);
-                    }
-                });
-            }
-
-            // Çalışan konumunu ekle
-            L.marker([result.latitude, result.longitude])
-                .bindPopup(`<b>Çalışan:</b> ${result.calisan_adi}<br><b>Adres:</b> ${result.address}`)
-                .addTo(map);
-
-            // Şubeleri ekle
+            // Google Maps ile harita oluştur
+            const mapDiv = document.getElementById('map');
+            if (!mapDiv) return;
+            // Harita baştan oluşturulacaksa eskiyi temizle
+            mapDiv.innerHTML = '';
+            // Çalışan ve şubelerin koordinatlarını al
+            const center = { lat: result.latitude, lng: result.longitude };
+            map = new google.maps.Map(mapDiv, {
+                center: center,
+                zoom: 12,
+                mapTypeId: 'roadmap'
+            });
+            // Çalışan markerı (mavi renkli)
+            const calisanMarker = new google.maps.Marker({
+                position: center,
+                map: map,
+                label: 'Ç',
+                title: `Çalışan: ${result.calisan_adi}`,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 10,
+                    fillColor: '#FFA500', // turuncu
+                    fillOpacity: 1,
+                    strokeWeight: 2,
+                    strokeColor: '#0d47a1'
+                }
+            });
+            const bounds = new google.maps.LatLngBounds();
+            bounds.extend(center);
+            // Şube markerları
             result.nearest_branches.forEach((branch, idx) => {
                 resultTable.innerHTML += `
                     <tr>
@@ -672,7 +716,18 @@
                     sure: branch.sure,
                     norm: branch.norm
                 });
+                // Şube markerı
+                const subeLatLng = { lat: branch.lat, lng: branch.lon };
+                const marker = new google.maps.Marker({
+                    position: subeLatLng,
+                    map: map,
+                    label: (idx+1).toString(),
+                    title: `Şube: ${branch.sube_adi}`
+                });
+                bounds.extend(subeLatLng);
             });
+            map.fitBounds(bounds);
+            setTimeout(() => { google.maps.event.trigger(map, 'resize'); }, 300);
 
             // Excel butonunu göster
             if (lastExcelResults.length > 0) {
@@ -680,14 +735,6 @@
             } else {
                 downloadBtn.style.display = 'none';
             }
-
-            // Haritayı tüm işaretçileri gösterecek şekilde ayarla
-            const bounds = L.latLngBounds([
-                [result.latitude, result.longitude],
-                ...result.nearest_branches.map(b => [b.lat, b.lon])
-            ]);
-            map.fitBounds(bounds, { padding: [50, 50] });
-            setTimeout(() => { map.invalidateSize(); }, 300);
 
             // Analiz sonuçlarını globalde sakla
             lastTekAdresResults = result;

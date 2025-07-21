@@ -1,3 +1,10 @@
+<!--
+    Atama Yönetimi Sayfası Şablonu
+    - Navbar
+    - Yeni atama ekleme formu
+    - Atama yönetimi tablosu
+    - Modal ve JS işlemleri
+-->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -59,6 +66,7 @@
     </style>
 </head>
 <body>
+<!-- Navbar başlangıcı -->
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="/">
@@ -70,6 +78,9 @@
         </div>
     </div>
 </nav>
+<!-- Navbar bitişi -->
+
+<!-- Yeni atama ekleme formu başlangıcı -->
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -97,6 +108,9 @@
                     </form>
                 </div>
             </div>
+            <!-- Yeni atama ekleme formu bitişi -->
+
+            <!-- Atama yönetimi tablosu başlangıcı -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0"><i class="fas fa-tasks me-2"></i>Atama Yönetimi</h4>
@@ -131,9 +145,11 @@
                     <button id="deleteAllAssignmentsBtn" class="btn btn-danger btn-sm"><i class="fas fa-trash me-1"></i>Tüm Atamaları İptal Et</button>
                 </div>
             </div>
+            <!-- Atama yönetimi tablosu bitişi -->
         </div>
     </div>
 </div>
+<!-- Modal ve JS işlemleri başlangıcı -->
 <!-- Düzenleme Modalı -->
 <div class="modal fade" id="editAssignmentModal" tabindex="-1" aria-labelledby="editAssignmentModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -513,5 +529,6 @@ function showInfoMessage(msg, type = 'success') {
     setTimeout(() => { infoDiv.style.display = 'none'; }, 3000);
 }
 </script>
+<!-- Modal ve JS işlemleri bitişi -->
 </body>
 </html>
